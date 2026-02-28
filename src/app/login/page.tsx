@@ -1,0 +1,194 @@
+"use client";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+export default function LoginPage() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError("");
+        setLoading(true);
+        const result = await signIn("credentials", { email, password, redirect: false });
+        if (result?.error) { setError("Invalid email or password."); setLoading(false); }
+        else { router.push("/"); router.refresh(); }
+    };
+
+    const features = [
+        { icon: "M13 10V3L4 14h7v7l9-11h-7z", text: "AI-Powered Smart Diagnosis" },
+        { icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z", text: "Digital Prescriptions & PDF" },
+        { icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z", text: "Complete Patient Management" },
+        { icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z", text: "Real-Time Analytics Dashboard" },
+    ];
+
+    const demoAccounts = [
+        { role: "Admin", email: "admin@test.com", pw: "admin123", color: "from-[#0d9488] to-[#0f766e]" },
+        { role: "Doctor", email: "doctor@test.com", pw: "doctor123", color: "from-[#0284c7] to-[#0369a1]" },
+        { role: "Receptionist", email: "receptionist@test.com", pw: "rec123", color: "from-[#7c3aed] to-[#6d28d9]" },
+        { role: "Patient", email: "patient@test.com", pw: "patient123", color: "from-[#dc2626] to-[#b91c1c]" },
+    ];
+
+    return (
+        <div className="min-h-screen flex bg-[#0a1628]">
+            {/* ─── LEFT: Branding Panel ─── */}
+            <div className="hidden lg:flex lg:w-[52%] flex-col justify-between p-12 xl:p-16 relative overflow-hidden"
+                style={{ background: "linear-gradient(135deg, #0a1628 0%, #0d2340 40%, #0a3228 100%)" }}>
+
+                {/* Decorative orbs */}
+                <div className="absolute -top-20 -left-20 w-96 h-96 rounded-full opacity-[0.08]"
+                    style={{ background: "radial-gradient(circle, #14b8a6, transparent 70%)" }} />
+                <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full opacity-[0.05]"
+                    style={{ background: "radial-gradient(circle, #2dd4bf, transparent 70%)" }} />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-[0.03]"
+                    style={{ background: "radial-gradient(circle, #67e8f9, transparent 70%)" }} />
+
+                {/* Top Logo */}
+                <div className="relative z-10 flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#14b8a6] to-[#0d9488] flex items-center justify-center shadow-[0_0_24px_rgba(20,184,166,0.4)]">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 className="text-xl font-black text-white tracking-tight">Clinic<span className="text-[#2dd4bf]">AI</span></h1>
+                        <p className="text-[11px] font-bold text-[#2dd4bf]/60 uppercase tracking-widest">Smart Medical Platform</p>
+                    </div>
+                </div>
+
+                {/* Center Hero */}
+                <div className="relative z-10 max-w-md mx-auto">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#14b8a6]/10 border border-[#14b8a6]/20 mb-8">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#14b8a6] animate-pulse" />
+                        <span className="text-xs font-bold text-[#2dd4bf] tracking-wider">AI-POWERED CLINIC SUITE</span>
+                    </div>
+                    <h2 className="text-4xl xl:text-5xl font-black text-white leading-[1.15] tracking-tight mb-5">
+                        The Future of<br />
+                        <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(90deg,#2dd4bf,#67e8f9)" }}>
+                            Healthcare
+                        </span><br />
+                        Management
+                    </h2>
+                    <p className="text-slate-400 text-base font-medium leading-relaxed mb-10">
+                        Streamline clinic operations, reduce paperwork, and enhance patient care with our AI-driven platform.
+                    </p>
+
+                    <div className="grid grid-cols-1 gap-3">
+                        {features.map((f, i) => (
+                            <div key={i} className="flex items-center gap-3 p-3.5 rounded-xl bg-white/[0.04] border border-white/[0.07] hover:bg-white/[0.07] transition-colors">
+                                <div className="w-8 h-8 rounded-lg bg-[#14b8a6]/15 flex items-center justify-center flex-shrink-0">
+                                    <svg className="w-4 h-4 text-[#2dd4bf]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={f.icon} />
+                                    </svg>
+                                </div>
+                                <span className="text-sm font-semibold text-slate-300">{f.text}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Bottom stats */}
+                <div className="relative z-10 flex items-center gap-6">
+                    {[["4", "User Roles"], ["AI", "Diagnosis Engine"], ["Live", "on Vercel"]].map(([v, l]) => (
+                        <div key={l}>
+                            <p className="text-xl font-black text-white">{v}</p>
+                            <p className="text-xs text-slate-500 font-semibold">{l}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* ─── RIGHT: Login Form ─── */}
+            <div className="flex-1 flex items-center justify-center p-6 lg:p-12 relative"
+                style={{ background: "linear-gradient(180deg, #0f1e35 0%, #0a1628 100%)" }}>
+
+                <div className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-[0.04]"
+                    style={{ background: "radial-gradient(circle, #14b8a6, transparent)" }} />
+
+                <div className="w-full max-w-md relative z-10">
+                    {/* Mobile logo */}
+                    <div className="lg:hidden flex items-center gap-3 mb-8">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#14b8a6] to-[#0d9488] flex items-center justify-center">
+                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </div>
+                        <span className="text-lg font-black text-white">Clinic<span className="text-[#2dd4bf]">AI</span></span>
+                    </div>
+
+                    <h2 className="text-3xl font-black text-white mb-1 tracking-tight">Welcome back</h2>
+                    <p className="text-slate-400 text-sm font-medium mb-8">Sign in to your medical workspace</p>
+
+                    <form onSubmit={handleSubmit} className="space-y-5">
+                        <div>
+                            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Email Address</label>
+                            <input
+                                type="email"
+                                required
+                                placeholder="doctor@clinic.com"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                className="w-full bg-white/[0.06] border border-white/[0.12] text-white placeholder-slate-500 px-4 py-3 rounded-xl text-sm font-medium outline-none focus:border-[#14b8a6] focus:bg-white/[0.09] focus:ring-2 focus:ring-[#14b8a6]/20 transition-all"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Password</label>
+                            <input
+                                type="password"
+                                required
+                                placeholder="••••••••"
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                className="w-full bg-white/[0.06] border border-white/[0.12] text-white placeholder-slate-500 px-4 py-3 rounded-xl text-sm font-medium outline-none focus:border-[#14b8a6] focus:bg-white/[0.09] focus:ring-2 focus:ring-[#14b8a6]/20 transition-all"
+                            />
+                        </div>
+
+                        {error && (
+                            <div className="flex items-center gap-2 px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-xl">
+                                <svg className="w-4 h-4 text-red-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                <p className="text-red-400 text-sm font-semibold">{error}</p>
+                            </div>
+                        )}
+
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="w-full py-3.5 rounded-xl font-bold text-white text-sm tracking-wide transition-all flex items-center justify-center gap-2 disabled:opacity-60"
+                            style={{ background: loading ? "#0d9488" : "linear-gradient(135deg,#0d9488,#14b8a6)", boxShadow: "0 6px 20px rgba(13,148,136,0.35)" }}
+                        >
+                            {loading && <div className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />}
+                            {loading ? "Signing in..." : "Sign In to Workspace"}
+                        </button>
+                    </form>
+
+                    {/* Demo Accounts */}
+                    <div className="mt-8">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="flex-1 h-px bg-white/[0.07]" />
+                            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Demo Access</span>
+                            <div className="flex-1 h-px bg-white/[0.07]" />
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                            {demoAccounts.map((acc) => (
+                                <button
+                                    key={acc.role}
+                                    type="button"
+                                    onClick={() => { setEmail(acc.email); setPassword(acc.pw); }}
+                                    className="group p-3 rounded-xl border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.07] hover:border-white/[0.15] transition-all text-left"
+                                >
+                                    <span className={`inline-block text-[10px] font-black px-2 py-0.5 rounded-md text-white mb-1.5 bg-gradient-to-r ${acc.color}`}>{acc.role}</span>
+                                    <p className="text-xs text-slate-400 font-medium truncate">{acc.email}</p>
+                                    <p className="text-[10px] text-slate-600 font-semibold">{acc.pw}</p>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}

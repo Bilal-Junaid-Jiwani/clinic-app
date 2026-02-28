@@ -1,0 +1,14 @@
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  reactCompiler: true,
+  env: {
+    MONGODB_URI: "mongodb+srv://bilaljunaid:Junaid4kzb@cluster0.kgp9ebj.mongodb.net/?appName=Cluster0",
+    GEMINI_API_KEY: "AIzaSyB9ND9VoEwpG15AJg77Tuw3pbkps6kw_4A",
+    NEXTAUTH_SECRET: "my_super_secret_hackathon_key_123",
+    NEXTAUTH_URL: "https://clinic-app-chi.vercel.app"
+  }
+};
+
+export default nextConfig;
