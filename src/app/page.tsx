@@ -2,6 +2,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import PublicNav from "@/components/PublicNav";
+import PublicFooter from "@/components/PublicFooter";
 
 export default async function LandingPage() {
     const session = await getServerSession(authOptions);
@@ -12,34 +14,7 @@ export default async function LandingPage() {
 
     return (
         <div className="min-h-screen bg-[#FAFAFE] selection:bg-[#7C3AED] selection:text-white font-sans overflow-x-hidden">
-            {/* Navigation */}
-            <nav className="fixed w-full z-50 transition-all duration-300 backdrop-blur-md bg-white/70 border-b border-[#E9E5F5]">
-                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7C3AED] to-[#4C1D95] flex items-center justify-center text-white font-black text-xl shadow-lg shadow-[#7C3AED]/20">
-                            C
-                        </div>
-                        <span className="text-xl font-black tracking-tight text-[#1E1B3A]">
-                            Clinic<span className="text-[#7C3AED]">AI</span>
-                        </span>
-                    </div>
-                    
-                    <div className="hidden md:flex items-center gap-8 text-sm font-bold text-[#6B6585]">
-                        <a href="#features" className="hover:text-[#7C3AED] transition-colors">Features</a>
-                        <a href="#how-it-works" className="hover:text-[#7C3AED] transition-colors">How it Works</a>
-                        <a href="#pricing" className="hover:text-[#7C3AED] transition-colors">Pricing</a>
-                    </div>
-
-                    <div className="flex items-center gap-4">
-                        <Link href="/login" className="text-sm font-bold text-[#1E1B3A] hover:text-[#7C3AED] transition-colors hidden sm:block">
-                            Sign In
-                        </Link>
-                        <Link href="/login" className="btn-primary shadow-lg shadow-[#7C3AED]/25 hover:shadow-[#7C3AED]/40 hover:-translate-y-0.5 transition-all text-sm px-6">
-                            Get Started Free
-                        </Link>
-                    </div>
-                </div>
-            </nav>
+            <PublicNav />
 
             {/* Hero Section */}
             <section className="relative pt-40 pb-20 lg:pt-48 lg:pb-32 overflow-hidden px-6">
@@ -177,27 +152,7 @@ export default async function LandingPage() {
                 </div>
             </section>
 
-            {/* Footer */}
-            <footer className="bg-white border-t border-[#E9E5F5] py-12 px-6">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-[#7C3AED] flex items-center justify-center text-white font-black shadow-md">
-                            C
-                        </div>
-                        <span className="text-lg font-black tracking-tight text-[#1E1B3A]">
-                            Clinic<span className="text-[#7C3AED]">AI</span>
-                        </span>
-                    </div>
-                    <p className="text-sm font-medium text-[#8B85A5]">
-                        &copy; {new Date().getFullYear()} ClinicAI. All rights reserved.
-                    </p>
-                    <div className="flex gap-6 text-sm font-bold text-[#6B6585]">
-                        <a href="#" className="hover:text-[#7C3AED] transition-colors">Privacy</a>
-                        <a href="#" className="hover:text-[#7C3AED] transition-colors">Terms</a>
-                        <a href="#" className="hover:text-[#7C3AED] transition-colors">Support</a>
-                    </div>
-                </div>
-            </footer>
+            <PublicFooter />
         </div>
     );
 }
