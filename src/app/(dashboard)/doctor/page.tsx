@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import connectToDatabase from "@/lib/mongodb";
 import Appointment from "@/lib/models/Appointment";
 import Prescription from "@/lib/models/Prescription";
+import Patient from "@/lib/models/Patient";
 import DoctorAnalyticsClient from "@/components/DoctorAnalytics";
 
 export default async function DoctorDashboard() {
