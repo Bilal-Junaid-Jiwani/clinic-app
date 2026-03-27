@@ -12,11 +12,13 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
     const getLinks = () => {
         switch (role) {
+            case "SuperAdmin": return [
+                { name: "Node Provisioning", href: "/superadmin", icon: "overview" },
+            ];
             case "Admin": return [
                 { name: "Overview", href: "/admin", icon: "overview" },
                 { name: "Doctors", href: "/admin/doctors", icon: "doctors" },
                 { name: "Receptionists", href: "/admin/receptionists", icon: "receptionists" },
-                { name: "Plans", href: "/admin/subscriptions", icon: "plans" },
             ];
             case "Doctor": return [
                 { name: "Overview", href: "/doctor", icon: "overview" },
@@ -40,11 +42,27 @@ export default async function DashboardLayout({ children }: { children: React.Re
         }
     };
 
+    const expiryTs = (session.user as any).subscriptionExpiry ? new Date((session.user as any).subscriptionExpiry).getTime() : 0;
+    const isExpiringSoon = role === 'Admin' && expiryTs > 0 && expiryTs - Date.now() < 7 * 24 * 60 * 60 * 1000;
+    const daysLeft = isExpiringSoon ? Math.ceil((expiryTs - Date.now()) / (1000 * 60 * 60 * 24)) : 0;
+
     return (
         <div style={{ display: "flex", height: "100vh", fontFamily: "'Inter', system-ui, sans-serif", background: "#F8F7FC" }}>
             <SidebarClient role={role} name={name || "User"} links={getLinks()} />
 
             <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", minWidth: 0, position: "relative" }}>
+                {isExpiringSoon && (
+                    <div className="bg-red-500/10 border-b border-red-500/20 px-8 py-3 text-red-500 text-sm font-bold flex justify-between items-center backdrop-blur-md relative z-50">
+                        <div className="flex items-center gap-3">
+                            <span className="relative flex h-3 w-3">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                            </span>
+                            <span>CRITICAL SYSTEM ALERT: Your Nexis subscription expires {daysLeft > 0 ? `in ${daysLeft} days` : 'today'}. Please rapidly contact system architects or risk node suspension.</span>
+                        </div>
+                    </div>
+                )}
+                
                 {/* Header */}
                 <header style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(12px)", padding: "16px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid rgba(233,229,245,0.6)", position: "sticky", top: 0, zIndex: 10 }}>
                     <div style={{ paddingLeft: 0 }} className="pl-12 lg:pl-0">
@@ -68,3 +86,4 @@ export default async function DashboardLayout({ children }: { children: React.Re
         </div>
     );
 }
+

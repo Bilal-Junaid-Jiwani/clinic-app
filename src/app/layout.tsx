@@ -3,7 +3,7 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
-  title: "ClinicAI – Smart Medical Management",
+  title: "Nexis – Smart Medical Management",
   description: "AI-powered clinic management SaaS for modern healthcare",
 };
 
@@ -26,3 +26,4 @@ export default function RootLayout({
     </html>
   );
 }
+

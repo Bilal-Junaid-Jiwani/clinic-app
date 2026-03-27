@@ -14,8 +14,13 @@ export async function GET(req: Request) {
         await connectToDatabase();
 
         // If Admin or Receptionist, they might see all patients.
-        // A doctor might only see their assigned patients, but for simplicity we fetch all.
-        const patients = await Patient.find({}).sort({ createdAt: -1 });
+        // A doctor might only see their assigned patients, but for simplicity we fetch all for this clinic.
+        const query: any = {};
+        if (session.user.role !== "SuperAdmin") {
+            query.clinicId = (session.user as any).clinicId;
+        }
+
+        const patients = await Patient.find(query).sort({ createdAt: -1 });
 
         return NextResponse.json({ patients }, { status: 200 });
     } catch (error: any) {
@@ -44,6 +49,7 @@ export async function POST(req: Request) {
             gender,
             contact,
             createdBy: session.user.id,
+            clinicId: (session.user as any).clinicId,
         });
 
         return NextResponse.json({ patient: newPatient }, { status: 201 });
@@ -51,3 +57,4 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
+

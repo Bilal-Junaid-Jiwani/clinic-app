@@ -14,3 +14,4 @@ export default async function ManageDoctorsPage() {
         <ManageUsersClient roleName="Doctor" icon="👨‍⚕️" />
     );
 }
+

@@ -15,6 +15,11 @@ const PatientSchema = new Schema(
             ref: "User", // Receptionist or Admin who created it
             required: true,
         },
+        clinicId: {
+            type: Schema.Types.ObjectId,
+            ref: "User", // The Admin of this clinic
+            required: true,
+        },
     },
     { timestamps: true }
 );
@@ -22,3 +27,4 @@ const PatientSchema = new Schema(
 const Patient = models.Patient || model("Patient", PatientSchema);
 
 export default Patient;
+

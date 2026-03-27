@@ -16,6 +16,9 @@ export async function GET(req: Request) {
         await connectToDatabase();
 
         let query: any = {};
+        if (session.user.role !== "SuperAdmin") {
+            query.clinicId = (session.user as any).clinicId;
+        }
 
         // Filter by role
         if (session.user.role === "Doctor") {
@@ -81,6 +84,7 @@ export async function POST(req: Request) {
             doctorId,
             date,
             status: "Pending",
+            clinicId: (session.user as any).clinicId,
         });
 
         return NextResponse.json({ appointment: newAppointment }, { status: 201 });
@@ -88,3 +92,4 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
+

@@ -108,3 +108,4 @@ Start with "Overall Risk: [Level]" on the first line.
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
+

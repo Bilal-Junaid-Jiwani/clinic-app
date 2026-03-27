@@ -17,11 +17,14 @@ export async function GET() {
 
         await connectToDatabase();
 
+        const clinicId = (session.user as any).clinicId;
+        const query: any = { clinicId };
+
         // Basic counts
-        const totalPatients = await Patient.countDocuments();
-        const totalDoctors = await User.countDocuments({ role: "Doctor" });
-        const totalReceptionists = await User.countDocuments({ role: "Receptionist" });
-        const totalAppointments = await Appointment.countDocuments();
+        const totalPatients = await Patient.countDocuments(query);
+        const totalDoctors = await User.countDocuments({ ...query, role: "Doctor" });
+        const totalReceptionists = await User.countDocuments({ ...query, role: "Receptionist" });
+        const totalAppointments = await Appointment.countDocuments(query);
 
         // Monthly appointments (last 6 months)
         const now = new Date();
@@ -29,7 +32,7 @@ export async function GET() {
         for (let i = 5; i >= 0; i--) {
             const start = new Date(now.getFullYear(), now.getMonth() - i, 1);
             const end = new Date(now.getFullYear(), now.getMonth() - i + 1, 0, 23, 59, 59);
-            const count = await Appointment.countDocuments({ date: { $gte: start, $lte: end } });
+            const count = await Appointment.countDocuments({ ...query, date: { $gte: start, $lte: end } });
             monthlyData.push({
                 month: start.toLocaleDateString("en-US", { month: "short", year: "2-digit" }),
                 appointments: count,
@@ -38,14 +41,15 @@ export async function GET() {
 
         // Appointment status breakdown
         const statusBreakdown = {
-            pending: await Appointment.countDocuments({ status: "Pending" }),
-            confirmed: await Appointment.countDocuments({ status: "Confirmed" }),
-            completed: await Appointment.countDocuments({ status: "Completed" }),
-            cancelled: await Appointment.countDocuments({ status: "Cancelled" }),
+            pending: await Appointment.countDocuments({ ...query, status: "Pending" }),
+            confirmed: await Appointment.countDocuments({ ...query, status: "Confirmed" }),
+            completed: await Appointment.countDocuments({ ...query, status: "Completed" }),
+            cancelled: await Appointment.countDocuments({ ...query, status: "Cancelled" }),
         };
 
         // Top 5 diagnoses from DiagnosisLog
         const topDiagnoses = await DiagnosisLog.aggregate([
+            { $match: { clinicId: new (require('mongoose')).Types.ObjectId(clinicId) } },
             { $group: { _id: "$riskLevel", count: { $sum: 1 } } },
             { $sort: { count: -1 } },
             { $limit: 5 },
@@ -55,7 +59,7 @@ export async function GET() {
         const revenue = totalAppointments * 150 + totalPatients * 50;
 
         // Recent appointments
-        const recentAppointments = await Appointment.find()
+        const recentAppointments = await Appointment.find(query)
             .populate("patientId", "name")
             .populate("doctorId", "name")
             .sort({ date: -1 })
@@ -77,3 +81,4 @@ export async function GET() {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
+

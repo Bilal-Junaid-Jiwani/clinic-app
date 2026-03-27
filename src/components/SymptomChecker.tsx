@@ -135,3 +135,4 @@ export function SymptomChecker() {
         </div>
     );
 }
+

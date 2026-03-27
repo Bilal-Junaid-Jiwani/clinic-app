@@ -30,7 +30,7 @@ export default function PricingPage() {
                             <span className="text-5xl font-black text-white">$29</span>
                             <span className="text-[#8B85A5] font-medium">/mo</span>
                         </div>
-                        <a href="/login" className="block w-full text-center py-4 px-4 rounded-xl font-bold text-white bg-white/5 border border-white/10 hover:bg-white/10 transition-colors mb-8 relative z-10">
+                        <a href="/register?plan=Starter" className="block w-full text-center py-4 px-4 rounded-xl font-bold text-white bg-white/5 border border-white/10 hover:bg-white/10 transition-colors mb-8 relative z-10">
                             Initialize Node
                         </a>
                         <ul className="space-y-4 text-sm font-medium text-[#A9A3C2] flex-1 relative z-10">
@@ -58,7 +58,7 @@ export default function PricingPage() {
                         </div>
                         
                         <div className="glow-border w-full mb-8 relative z-10">
-                            <a href="/login" className="block w-full text-center py-4 px-4 rounded-xl font-bold text-white bg-[#7C3AED] hover:bg-[#6D28D9] transition-colors relative z-10 shadow-[0_0_20px_rgba(124,58,237,0.3)]">
+                            <a href="/register?plan=Professional" className="block w-full text-center py-4 px-4 rounded-xl font-bold text-white bg-[#7C3AED] hover:bg-[#6D28D9] transition-colors relative z-10 shadow-[0_0_20px_rgba(124,58,237,0.3)]">
                                 Upgrade to Professional
                             </a>
                         </div>
@@ -80,7 +80,7 @@ export default function PricingPage() {
                         <div className="mb-8 relative z-10">
                             <span className="text-4xl font-black text-white">Custom</span>
                         </div>
-                        <a href="/login" className="block w-full text-center py-4 px-4 rounded-xl font-bold text-[#1A1145] bg-white hover:bg-[#F5F3FF] transition-colors mb-8 relative z-10">
+                        <a href="/register?plan=Enterprise" className="block w-full text-center py-4 px-4 rounded-xl font-bold text-[#1A1145] bg-white hover:bg-[#F5F3FF] transition-colors mb-8 relative z-10">
                             Contact Solutions
                         </a>
                         <ul className="space-y-4 text-sm font-medium text-[#A9A3C2] flex-1 relative z-10">
@@ -98,3 +98,4 @@ export default function PricingPage() {
         </div>
     );
 }
+

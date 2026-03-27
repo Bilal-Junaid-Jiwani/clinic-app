@@ -19,6 +19,11 @@ const DiagnosisLogSchema = new Schema(
         },
         age: { type: Number },
         gender: { type: String, enum: ["Male", "Female", "Other"] },
+        clinicId: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
     },
     { timestamps: true }
 );
@@ -26,3 +31,4 @@ const DiagnosisLogSchema = new Schema(
 const DiagnosisLog = models.DiagnosisLog || model("DiagnosisLog", DiagnosisLogSchema);
 
 export default DiagnosisLog;
+

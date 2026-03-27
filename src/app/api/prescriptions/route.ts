@@ -14,6 +14,9 @@ export async function GET(req: Request) {
         await connectToDatabase();
 
         let query: any = {};
+        if (session.user.role !== "SuperAdmin") {
+            query.clinicId = (session.user as any).clinicId;
+        }
         if (session.user.role === "Doctor") {
             query.doctorId = session.user.id;
         } else if (session.user.role === "Patient") {
@@ -60,6 +63,7 @@ export async function POST(req: Request) {
             medicines,
             instructions,
             diagnosis: diagnosis || undefined,
+            clinicId: (session.user as any).clinicId,
         });
 
         return NextResponse.json({ prescription: newPrescription }, { status: 201 });
@@ -67,3 +71,4 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
+

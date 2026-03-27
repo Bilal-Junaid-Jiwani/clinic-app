@@ -129,3 +129,4 @@ export default function SidebarClient({ role, name, links }: SidebarClientProps)
         </>
     );
 }
+

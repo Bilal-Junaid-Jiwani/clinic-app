@@ -12,10 +12,11 @@ export default async function AdminDashboard() {
             <div className="flex items-center justify-between mb-8">
                 <div>
                     <h1 className="text-2xl font-black text-[#1E1B3A] tracking-tight">Organization Overview</h1>
-                    <p className="text-sm font-medium text-[#8B85A5] mt-1">Analytics and management for ClinicAI.</p>
+                    <p className="text-sm font-medium text-[#8B85A5] mt-1">Analytics and management for Nexis.</p>
                 </div>
             </div>
             <AdminAnalyticsClient />
         </div>
     );
 }
+

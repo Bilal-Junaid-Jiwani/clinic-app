@@ -30,7 +30,7 @@ export default async function LandingPage() {
                     {/* Minimal Monospace Pill */}
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-[#E9E5F5] text-xs font-mono font-bold text-[#6B6585] mb-12 shadow-sm tracking-widest uppercase">
                         <span className="w-2 h-2 rounded-full bg-[#7C3AED] animate-pulse"></span>
-                        ClinicAI Platform v2.0
+                        Nexis Platform v2.0
                     </div>
                     
                     {/* Hyper-Scale Typography */}
@@ -168,7 +168,7 @@ export default async function LandingPage() {
                             Ready to compile your practice?
                         </h2>
                         <Link href="/login" className="inline-block px-10 py-5 bg-white text-[#1E1B3A] rounded-2xl text-lg font-black hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.2)]">
-                            Deploy ClinicAI Workspace
+                            Deploy Nexis Workspace
                         </Link>
                     </div>
                 </div>
@@ -178,3 +178,4 @@ export default async function LandingPage() {
         </div>
     );
 }
+

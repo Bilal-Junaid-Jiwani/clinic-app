@@ -11,7 +11,7 @@ export default function PublicFooter() {
                                 C
                             </div>
                             <span className="text-lg font-black tracking-tight text-[#1A1A1A]">
-                                ClinicAI
+                                Nexis
                             </span>
                         </Link>
                         <p className="text-[#6B6585] text-sm max-w-sm leading-relaxed font-medium">
@@ -36,7 +36,7 @@ export default function PublicFooter() {
                     </div>
                 </div>
                 <div className="pt-8 border-t border-[#E9E5F5] flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-medium text-[#8B85A5]">
-                    <p>&copy; {new Date().getFullYear()} ClinicAI Technologies, Inc. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} Nexis Technologies, Inc. All rights reserved.</p>
                     <div className="flex gap-6">
                         <a href="#" className="hover:text-[#1A1A1A] transition-colors">Privacy Policy</a>
                         <a href="#" className="hover:text-[#1A1A1A] transition-colors">Terms of Service</a>
@@ -46,3 +46,4 @@ export default function PublicFooter() {
         </footer>
     );
 }
+

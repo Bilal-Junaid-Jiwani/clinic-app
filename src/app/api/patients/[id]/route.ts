@@ -11,7 +11,13 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
 
         const { id } = await params;
         await connectToDatabase();
-        const patient = await Patient.findById(id).populate("createdBy", "name");
+        
+        const query: any = { _id: id };
+        if (session.user.role !== "SuperAdmin") {
+            query.clinicId = (session.user as any).clinicId;
+        }
+
+        const patient = await Patient.findOne(query).populate("createdBy", "name");
 
         if (!patient) return NextResponse.json({ error: "Patient not found" }, { status: 404 });
 
@@ -43,7 +49,13 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
         }
 
         await connectToDatabase();
-        const updated = await Patient.findByIdAndUpdate(id, filtered, { new: true });
+        
+        const query: any = { 
+            _id: id,
+            clinicId: (session.user as any).clinicId 
+        };
+        
+        const updated = await Patient.findOneAndUpdate(query, filtered, { new: true });
 
         if (!updated) return NextResponse.json({ error: "Patient not found" }, { status: 404 });
 

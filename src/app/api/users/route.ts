@@ -24,9 +24,13 @@ export async function GET(request: Request) {
 
         await connectToDatabase();
 
-        let query = {};
+        let query: any = {};
         if (role) {
-            query = { role };
+            query.role = role;
+        }
+
+        if (session.user.role !== "SuperAdmin") {
+            query.clinicId = (session.user as any).clinicId;
         }
 
         const users = await User.find(query).select('-password');
@@ -69,6 +73,7 @@ export async function POST(request: Request) {
             email,
             password: hashedPassword,
             role,
+            clinicId: (session.user as any).clinicId,
             subscriptionPlan: role === "Doctor" ? "Pro" : undefined
         });
 
@@ -83,3 +88,4 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "Failed to create user" }, { status: 500 });
     }
 }
+

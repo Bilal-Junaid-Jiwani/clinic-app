@@ -34,12 +34,19 @@ export const authOptions: NextAuthOptions = {
                     throw new Error("Invalid email or password");
                 }
 
+                if (user.status === "pending") {
+                    throw new Error("Subscription pending approval.");
+                }
+
                 return {
                     id: user._id.toString(),
                     name: user.name,
                     email: user.email,
                     role: user.role,
                     subscriptionPlan: user.subscriptionPlan,
+                    status: user.status,
+                    clinicId: user.role === "Admin" ? user._id.toString() : user.clinicId?.toString(),
+                    subscriptionExpiry: (user as any).subscriptionExpiry,
                 };
             },
         }),
@@ -48,8 +55,11 @@ export const authOptions: NextAuthOptions = {
         async jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
-                token.role = user.role;
-                token.subscriptionPlan = user.subscriptionPlan;
+                token.role = (user as any).role;
+                token.subscriptionPlan = (user as any).subscriptionPlan;
+                token.status = (user as any).status;
+                token.clinicId = (user as any).clinicId;
+                token.subscriptionExpiry = (user as any).subscriptionExpiry;
             }
             return token;
         },
@@ -58,6 +68,9 @@ export const authOptions: NextAuthOptions = {
                 (session.user as any).id = token.id;
                 (session.user as any).role = token.role;
                 (session.user as any).subscriptionPlan = token.subscriptionPlan;
+                (session.user as any).status = token.status;
+                (session.user as any).clinicId = token.clinicId;
+                (session.user as any).subscriptionExpiry = token.subscriptionExpiry;
             }
             return session;
         },
@@ -70,3 +83,4 @@ export const authOptions: NextAuthOptions = {
     },
     secret: process.env.NEXTAUTH_SECRET,
 };
+

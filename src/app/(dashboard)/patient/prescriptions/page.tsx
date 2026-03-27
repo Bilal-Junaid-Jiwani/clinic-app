@@ -21,7 +21,7 @@ export default function PatientPrescriptionsPage() {
         // Header
         pdf.setFontSize(24);
         pdf.setTextColor(124, 58, 237);
-        pdf.text("Clinic AI", pageW / 2, y, { align: "center" });
+        pdf.text("Nexis", pageW / 2, y, { align: "center" });
         y += 8;
         pdf.setFontSize(10);
         pdf.setTextColor(120, 120, 120);
@@ -169,3 +169,4 @@ export default function PatientPrescriptionsPage() {
         </div>
     );
 }
+

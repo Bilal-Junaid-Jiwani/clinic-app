@@ -19,6 +19,11 @@ const AppointmentSchema = new Schema(
             enum: ["Pending", "Confirmed", "Completed", "Cancelled"],
             default: "Pending",
         },
+        clinicId: {
+            type: Schema.Types.ObjectId,
+            ref: "User", // The Admin of this clinic
+            required: true,
+        },
     },
     { timestamps: true }
 );
@@ -26,3 +31,4 @@ const AppointmentSchema = new Schema(
 const Appointment = models.Appointment || model("Appointment", AppointmentSchema);
 
 export default Appointment;
+

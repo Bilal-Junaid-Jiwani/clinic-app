@@ -10,6 +10,6 @@ export const config = {
          * - _next/image (image optimization files)
          * - favicon.ico (favicon file)
          */
-        "/((?!api/auth|login|features|how-it-works|pricing|_next/static|_next/image|favicon.ico|$).*)",
+        "/((?!api/auth|login|register|features|how-it-works|pricing|_next/static|_next/image|favicon.ico|$).*)",
     ],
 };

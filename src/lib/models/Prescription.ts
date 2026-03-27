@@ -22,6 +22,11 @@ const PrescriptionSchema = new Schema(
         ],
         instructions: { type: String },
         diagnosis: { type: String },
+        clinicId: {
+            type: Schema.Types.ObjectId,
+            ref: "User", // The Admin of this clinic
+            required: true,
+        },
     },
     { timestamps: true } // adds createdAt automatically
 );
@@ -29,3 +34,4 @@ const PrescriptionSchema = new Schema(
 const Prescription = models.Prescription || model("Prescription", PrescriptionSchema);
 
 export default Prescription;
+
