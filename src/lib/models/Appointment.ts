@@ -1,5 +1,6 @@
 import mongoose, { Schema, model, models } from "mongoose";
-
+import "./Patient";
+import "./User";
 const AppointmentSchema = new Schema(
     {
         patientId: {
