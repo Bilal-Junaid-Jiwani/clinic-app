@@ -13,142 +13,164 @@ export default async function LandingPage() {
     }
 
     return (
-        <div className="min-h-screen bg-[#FAFAFE] selection:bg-[#7C3AED] selection:text-white font-sans overflow-x-hidden">
+        <div className="min-h-screen bg-[#FAFAFE] selection:bg-[#7C3AED] selection:text-white font-sans overflow-hidden relative">
+            {/* Global Background Grid */}
+            <div className="absolute inset-0 bg-grid-pattern pointer-events-none z-0 mix-blend-multiply opacity-60"></div>
+            
             <PublicNav />
 
-            {/* Hero Section */}
-            <section className="relative pt-40 pb-20 lg:pt-48 lg:pb-32 overflow-hidden px-6">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-gradient-to-b from-[#7C3AED]/10 to-transparent blur-[100px] -z-10 rounded-full pointer-events-none" />
-                
-                <div className="max-w-5xl mx-auto text-center relative z-10 animate-fade-in">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5F3FF] border border-[#E9E5F5] text-sm font-bold text-[#7C3AED] mb-8 shadow-sm">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7C3AED] opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#7C3AED]"></span>
-                        </span>
-                        ClinicAI 2.0 is now live
+            {/* Ultra Premium Hero Section */}
+            <section className="relative pt-40 pb-32 lg:pt-56 lg:pb-40 px-6 z-10 flex flex-col items-center">
+                {/* Floating Ambient Orbs */}
+                <div className="absolute top-[20%] left-[10%] w-[30vw] h-[30vw] min-w-[300px] bg-[#7C3AED]/20 blur-[120px] rounded-full animate-pulse-slow pointer-events-none"></div>
+                <div className="absolute bottom-[0%] right-[10%] w-[25vw] h-[25vw] min-w-[250px] bg-[#10B981]/15 blur-[120px] rounded-full animate-pulse-slow pointer-events-none" style={{ animationDelay: '2s' }}></div>
+
+                <div className="max-w-6xl mx-auto text-center relative z-10 w-full animate-fade-in">
+                    
+                    {/* Minimal Monospace Pill */}
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-[#E9E5F5] text-xs font-mono font-bold text-[#6B6585] mb-12 shadow-sm tracking-widest uppercase">
+                        <span className="w-2 h-2 rounded-full bg-[#7C3AED] animate-pulse"></span>
+                        ClinicAI Platform v2.0
                     </div>
                     
-                    <h1 className="text-5xl md:text-7xl font-black text-[#1E1B3A] tracking-tight leading-[1.1] mb-8">
-                        The future of clinic<br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#4C1D95]">management is here.</span>
+                    {/* Hyper-Scale Typography */}
+                    <h1 className="text-6xl md:text-[6rem] xl:text-[7.5rem] font-black text-[#1E1B3A] tracking-tighter leading-[0.9] mb-8">
+                        Healthcare, <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] via-[#4C1D95] to-[#1E1B3A]">architected for speed.</span>
                     </h1>
                     
-                    <p className="text-lg md:text-xl text-[#6B6585] font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
-                        Transform your medical practice with AI-powered diagnosis, instant digital prescriptions, and smart booking analytics. Designed for modern clinics.
+                    <p className="text-xl md:text-2xl text-[#6B6585] font-medium max-w-3xl mx-auto mb-14 leading-relaxed">
+                        A fully integrated, AI-native operating system designed to eliminate friction in modern clinical environments. Code, data, and patient care—unified.
                     </p>
                     
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Link href="/login" className="btn-primary text-lg w-full sm:w-auto px-8 py-4 shadow-xl shadow-[#7C3AED]/25 hover:shadow-[#7C3AED]/40 hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
-                            Start Your Free Trial
-                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                        <Link href="/login" className="glow-border w-full sm:w-auto">
+                            <div className="relative z-10 px-10 py-5 bg-[#1E1B3A] text-white rounded-2xl text-lg font-bold hover:bg-black transition-all shadow-[0_0_40px_rgba(124,58,237,0.3)] flex items-center justify-center gap-3">
+                                Initialize Workspace
+                                <svg className="w-5 h-5 text-[#8B5CF6]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                            </div>
                         </Link>
-                        <a href="#features" className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-[#1E1B3A] bg-white border-2 border-[#E9E5F5] hover:border-[#7C3AED] hover:text-[#7C3AED] transition-all flex items-center justify-center gap-2">
-                            Explore Features
-                        </a>
-                    </div>
-                    
-                    <p className="text-sm font-medium text-[#8B85A5] mt-6">
-                        No credit card required • 14-day free trial • Cancel anytime
-                    </p>
-                </div>
-                
-                {/* Hero Dashboard Preview Image/Mock */}
-                <div className="max-w-6xl mx-auto mt-20 relative animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAFE] via-transparent to-transparent z-10"></div>
-                    <div className="glass-card p-2 rounded-2xl md:rounded-[2rem] border border-[#E9E5F5] shadow-2xl bg-white/50 relative overflow-hidden">
-                         <div className="absolute top-0 left-0 w-full h-12 bg-[#F8F7FC] border-b border-[#E9E5F5] flex items-center px-6 gap-2">
-                             <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
-                             <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
-                             <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
-                         </div>
-                         <div className="mt-12 bg-white rounded-xl overflow-hidden aspect-video relative flex items-center justify-center border border-[#F1EFF8]">
-                             {/* Abstract UI Representation */}
-                             <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#7C3AED 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
-                             <div className="grid grid-cols-4 gap-6 p-8 w-full h-full relative z-10">
-                                 <div className="col-span-1 border-r border-[#F1EFF8] pr-6 space-y-4">
-                                     <div className="h-8 w-3/4 rounded-lg bg-[#F5F3FF]"></div>
-                                     <div className="h-4 w-1/2 rounded bg-[#F1EFF8]"></div>
-                                     <div className="h-4 w-2/3 rounded bg-[#F1EFF8]"></div>
-                                     <div className="h-4 w-1/2 rounded bg-[#F1EFF8]"></div>
-                                 </div>
-                                 <div className="col-span-3 space-y-6">
-                                     <div className="h-12 w-1/3 rounded-xl bg-gradient-to-r from-[#F5F3FF] to-transparent"></div>
-                                     <div className="grid grid-cols-3 gap-4">
-                                         <div className="h-24 rounded-xl bg-white border border-[#E9E5F5] shadow-sm"></div>
-                                         <div className="h-24 rounded-xl bg-white border border-[#E9E5F5] shadow-sm"></div>
-                                         <div className="h-24 rounded-xl bg-white border border-[#E9E5F5] shadow-sm"></div>
-                                     </div>
-                                     <div className="h-48 rounded-xl bg-[#F8F7FC] border border-[#F1EFF8]"></div>
-                                 </div>
-                             </div>
-                         </div>
+                        <Link href="/features" className="w-full sm:w-auto px-10 py-5 rounded-2xl font-bold text-[#1E1B3A] bg-white/50 backdrop-blur-md border border-[#E9E5F5] hover:border-[#7C3AED] hover:bg-white transition-all shadow-sm">
+                            Read the Documentation
+                        </Link>
                     </div>
                 </div>
             </section>
 
-            {/* Features Section */}
-            <section id="features" className="py-24 bg-white px-6">
+            {/* Asymmetrical Bento Grid Ecosystem Section */}
+            <section className="py-24 px-6 relative z-10">
                 <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-5xl font-black text-[#1E1B3A] tracking-tight mb-4">
-                            Everything you need to run a modern clinic
+                    
+                    <div className="mb-20">
+                        <h2 className="text-4xl md:text-5xl font-black text-[#1E1B3A] tracking-tight mb-4">
+                            The ecosystem.
                         </h2>
-                        <p className="text-[#6B6585] font-medium text-lg max-w-2xl mx-auto">
-                            Replace messy paperwork and disconnected systems with one unified, intelligent platform.
-                        </p>
+                        <p className="text-xl text-[#6B6585] font-medium">Everything you need to scale perfectly, out of the box.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {/* Feature 1 */}
-                        <div className="glass-card p-8 group hover:-translate-y-1 transition-transform">
-                            <div className="w-14 h-14 rounded-2xl bg-[#F5F3FF] flex items-center justify-center text-[#7C3AED] mb-6 group-hover:scale-110 transition-transform">
-                                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[400px]">
+                        
+                        {/* Bento Item 1: Giant Analytics Card */}
+                        <div className="md:col-span-2 glass-card rounded-[2rem] p-8 relative overflow-hidden group hover:border-[#7C3AED]/40 transition-colors">
+                            <div className="absolute -inset-1 bg-gradient-to-br from-[#7C3AED]/10 to-transparent blur-xl z-0 pointer-events-none"></div>
+                            
+                            <div className="relative z-10 h-full flex flex-col justify-between">
+                                <div>
+                                    <h3 className="text-2xl font-black text-[#1E1B3A] mb-2">Real-Time Telemetry</h3>
+                                    <p className="text-[#6B6585] font-medium max-w-sm">Institutional-grade analytics capturing every micro-interaction across your clinic's patient flow.</p>
+                                </div>
+                                
+                                {/* Abstract UI Render */}
+                                <div className="mt-8 flex-1 w-full bg-[#FAFAFE] border border-[#E9E5F5] rounded-xl shadow-inner relative overflow-hidden group-hover:shadow-[inset_0_0_20px_rgba(124,58,237,0.05)] transition-shadow p-6 flex items-end gap-4">
+                                    <div className="w-full h-[40%] bg-gradient-to-t from-[#7C3AED] to-[#C4B5FD] rounded-t-sm relative"><div className="absolute top-0 w-full h-px bg-white/50"></div></div>
+                                    <div className="w-full h-[70%] bg-gradient-to-t from-[#7C3AED] to-[#C4B5FD] rounded-t-sm relative"><div className="absolute top-0 w-full h-px bg-white/50"></div></div>
+                                    <div className="w-full h-[50%] bg-gradient-to-t from-[#7C3AED] to-[#A78BFA] rounded-t-sm relative"><div className="absolute top-0 w-full h-px bg-white/50"></div></div>
+                                    <div className="w-full h-[90%] bg-gradient-to-t from-[#4C1D95] to-[#7C3AED] rounded-t-sm relative shadow-[0_0_20px_rgba(124,58,237,0.4)]"><div className="absolute top-0 w-full h-px bg-white"></div><div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-black text-[#4C1D95] bg-white px-2 py-0.5 rounded shadow">+42%</div></div>
+                                    <div className="w-full h-[60%] bg-gradient-to-t from-[#7C3AED] to-[#C4B5FD] rounded-t-sm relative"><div className="absolute top-0 w-full h-px bg-white/50"></div></div>
+                                </div>
                             </div>
-                            <h3 className="text-xl font-bold text-[#1E1B3A] mb-3">AI Symptom Checker</h3>
-                            <p className="text-[#6B6585] text-sm leading-relaxed font-medium">
-                                Get instant second opinions from our trained AI model. Generate differential diagnoses based on patient history and current symptoms.
-                            </p>
                         </div>
-                        {/* Feature 2 */}
-                        <div className="glass-card p-8 group hover:-translate-y-1 transition-transform">
-                            <div className="w-14 h-14 rounded-2xl bg-[#F5F3FF] flex items-center justify-center text-[#7C3AED] mb-6 group-hover:scale-110 transition-transform">
-                                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+
+                        {/* Bento Item 2: AI Diagnostic */}
+                        <div className="glass-card rounded-[2rem] p-8 relative overflow-hidden bg-[#1E1B3A] border-[#1E1B3A] group group-hover:shadow-2xl">
+                            <div className="absolute inset-0 bg-dot-pattern opacity-20 Mix-blend-overlay"></div>
+                            
+                            <div className="relative z-10 h-full flex flex-col">
+                                <h3 className="text-2xl font-black text-white mb-2">Neural Diagnostic Engine</h3>
+                                <p className="text-[#8B85A5] font-medium text-sm">State-of-the-art LLMs synthesize differential risks instantly.</p>
+                                
+                                {/* Fake Terminal Output */}
+                                <div className="mt-auto bg-black/40 border border-white/10 rounded-xl p-4 font-mono text-xs text-[#10B981] space-y-2 relative overflow-hidden">
+                                    <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#10B981] to-transparent animate-scan absolute top-0 left-0"></div>
+                                    <p className="text-[#6B6585]">&gt; Analyzing symptoms...</p>
+                                    <p>&gt; [Matched] Pattern recognition active</p>
+                                    <p>&gt; Differential: Bronchitis <span className="text-white">(88% confidence)</span></p>
+                                    <p className="animate-pulse">&gt; _</p>
+                                </div>
                             </div>
-                            <h3 className="text-xl font-bold text-[#1E1B3A] mb-3">Digital Prescriptions</h3>
-                            <p className="text-[#6B6585] text-sm leading-relaxed font-medium">
-                                Write, save, and instantly generate beautifully formatted PDF prescriptions. Patients can digitally access them anytime.
-                            </p>
                         </div>
-                        {/* Feature 3 */}
-                        <div className="glass-card p-8 group hover:-translate-y-1 transition-transform">
-                            <div className="w-14 h-14 rounded-2xl bg-[#F5F3FF] flex items-center justify-center text-[#7C3AED] mb-6 group-hover:scale-110 transition-transform">
-                                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+
+                        {/* Bento Item 3: Prescriptions */}
+                        <div className="glass-card rounded-[2rem] p-8 relative overflow-hidden group hover:border-[#10B981]/40 mix-blend-multiply bg-white">
+                            <h3 className="text-2xl font-black text-[#1E1B3A] mb-2">Digital Scripts</h3>
+                            <p className="text-[#6B6585] font-medium">Zero-latency PDF generation.</p>
+                            
+                            <div className="mt-6 -mr-12 -mb-12 bg-[#F8F7FC] border border-[#E9E5F5] rounded-tl-2xl p-6 shadow-[-10px_-10px_30px_rgba(0,0,0,0.05)] transform group-hover:-translate-x-2 group-hover:-translate-y-2 transition-transform">
+                                <div className="w-3/4 h-4 bg-white rounded mb-3 border border-[#F1EFF8]"></div>
+                                <div className="w-1/2 h-4 bg-white rounded mb-6 border border-[#F1EFF8]"></div>
+                                <div className="space-y-2">
+                                    <div className="w-full h-8 bg-[#ECFDF5] border border-[#10B981]/20 rounded flex items-center px-3 gap-2">
+                                        <div className="w-2 h-2 rounded-full bg-[#10B981]"></div>
+                                        <div className="h-2 w-1/3 bg-[#10B981]/40 rounded"></div>
+                                    </div>
+                                    <div className="w-full h-8 bg-[#ECFDF5] border border-[#10B981]/20 rounded flex items-center px-3 gap-2">
+                                        <div className="w-2 h-2 rounded-full bg-[#10B981]"></div>
+                                        <div className="h-2 w-1/2 bg-[#10B981]/40 rounded"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 className="text-xl font-bold text-[#1E1B3A] mb-3">Smart Scheduling</h3>
-                            <p className="text-[#6B6585] text-sm leading-relaxed font-medium">
-                                Powerful booking engine for your receptionists. Track patient flow, minimize no-shows, and manage wait times effortlessly.
-                            </p>
                         </div>
+
+                        {/* Bento Item 4: RBAC */}
+                        <div className="md:col-span-2 glass-card rounded-[2rem] p-8 relative flex items-center gap-8 group hover:border-[#1E1B3A]/20">
+                            <div className="flex-1">
+                                <h3 className="text-2xl font-black text-[#1E1B3A] mb-2">Role-Based Architecture</h3>
+                                <p className="text-[#6B6585] font-medium mb-6">Strict separation of concerns. Admins manage logic, Doctors diagnose, Receptionists ingest data, Patients view outcomes.</p>
+                                <div className="flex flex-wrap gap-2">
+                                    <span className="px-3 py-1 bg-[#F5F3FF] text-[#7C3AED] font-bold text-xs rounded-full border border-[#DDD6FE]">Super Admin</span>
+                                    <span className="px-3 py-1 bg-[#EFF6FF] text-[#1D4ED8] font-bold text-xs rounded-full border border-[#BFDBFE]">Doctor Node</span>
+                                    <span className="px-3 py-1 bg-[#FFF7ED] text-[#EA580C] font-bold text-xs rounded-full border border-[#FED7AA]">Intake Desk</span>
+                                </div>
+                            </div>
+                            <div className="hidden md:flex relative w-48 h-48 animate-float">
+                                <div className="absolute inset-0 border-4 border-[#F5F3FF] rounded-full"></div>
+                                <div className="absolute inset-4 border-4 border-dashed border-[#E9E5F5] rounded-full animate-[spin_20s_linear_infinite]"></div>
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="w-16 h-16 bg-[#1E1B3A] rounded-2xl rotate-45 flex items-center justify-center shadow-[0_0_30px_rgba(30,27,58,0.3)]">
+                                        <div className="w-6 h-6 bg-white rounded-full -rotate-45"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>
 
-            {/* CTA Section */}
-            <section className="py-24 px-6 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #7C3AED, #0F0B2E)" }}>
-                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-white/5 blur-[120px] rounded-full pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#4C1D95]/40 blur-[100px] rounded-full pointer-events-none" />
-                
-                <div className="max-w-4xl mx-auto text-center relative z-10">
-                    <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-6">
-                        Ready to upgrade your clinic?
-                    </h2>
-                    <p className="text-white/80 font-medium text-lg mb-10 max-w-2xl mx-auto">
-                        Join hundreds of medical professionals using ClinicAI to save time and deliver better patient care.
-                    </p>
-                    <Link href="/login" className="inline-flex items-center justify-center px-8 py-4 text-lg font-black bg-white text-[#7C3AED] rounded-xl hover:bg-[#F5F3FF] hover:scale-105 transition-all shadow-2xl">
-                        Create Your Clinic Workspace
-                    </Link>
+            {/* Monolith CTA */}
+            <section className="py-32 px-6 relative">
+                <div className="max-w-5xl mx-auto glass-card rounded-[3rem] p-12 md:p-20 text-center bg-[#1E1B3A] border-none shadow-[0_30px_60px_rgba(30,27,58,0.4)] relative overflow-hidden">
+                    <div className="absolute inset-0 bg-dot-pattern opacity-10"></div>
+                    <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-[conic-gradient(from_90deg_at_50%_50%,#1E1B3A_0%,#4C1D95_50%,#1E1B3A_100%)] opacity-30 animate-[spin_10s_linear_infinite] pointer-events-none"></div>
+                    
+                    <div className="relative z-10">
+                        <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-8">
+                            Ready to compile your practice?
+                        </h2>
+                        <Link href="/login" className="inline-block px-10 py-5 bg-white text-[#1E1B3A] rounded-2xl text-lg font-black hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.2)]">
+                            Deploy ClinicAI Workspace
+                        </Link>
+                    </div>
                 </div>
             </section>
 
