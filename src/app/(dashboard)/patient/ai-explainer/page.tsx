@@ -10,8 +10,8 @@ export default async function PatientAIExplainerPage() {
     return (
         <div className="space-y-6 animate-fade-in">
             <div>
-                <h1 className="text-2xl font-bold text-gray-900">AI Prescription Explainer</h1>
-                <p className="text-sm text-gray-500">Paste your prescription and get an AI-powered explanation in simple language or Urdu.</p>
+                <h1 className="text-2xl font-black text-[#1E1B3A] tracking-tight">AI Prescription Explainer</h1>
+                <p className="text-sm text-[#8B85A5] font-medium">Paste your prescription and get an AI-powered explanation in simple language or Urdu.</p>
             </div>
             <PrescriptionExplainer />
         </div>

@@ -28,23 +28,25 @@ export default function SidebarClient({ role, name, links }: SidebarClientProps)
         <aside className={`
             fixed lg:static inset-y-0 left-0 z-50 w-[272px] flex flex-col
             transition-transform duration-300 ease-in-out
-            bg-[#0a1628]
             ${open ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0
-        `}>
+        `}
+            style={{ background: "linear-gradient(180deg, #0F0B2E 0%, #1A1145 100%)" }}
+        >
             {/* Top accent line */}
-            <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-[#14b8a6] to-transparent opacity-70" />
+            <div className="h-[2px] w-full" style={{ background: "linear-gradient(90deg, transparent 5%, #8B5CF6 30%, #A78BFA 50%, #8B5CF6 70%, transparent 95%)" }} />
 
             {/* Logo */}
             <div className="px-6 py-5 flex items-center justify-between border-b border-white/[0.06]">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#14b8a6] to-[#0d9488] flex items-center justify-center shadow-[0_0_18px_rgba(20,184,166,0.35)]">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(139,92,246,0.4)]"
+                        style={{ background: "linear-gradient(135deg, #8B5CF6, #7C3AED)" }}>
                         <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                         </svg>
                     </div>
                     <div>
-                        <h1 className="text-lg font-black text-white tracking-tight leading-none">Clinic<span className="text-[#2dd4bf]">AI</span></h1>
-                        <span className="text-[10px] font-bold text-[#2dd4bf]/70 uppercase tracking-widest">{role}</span>
+                        <h1 className="text-lg font-black text-white tracking-tight leading-none">Clinic<span className="text-[#A78BFA]">AI</span></h1>
+                        <span className="text-[10px] font-bold text-[#A78BFA]/70 uppercase tracking-widest">{role}</span>
                     </div>
                 </div>
                 <button onClick={() => setOpen(false)} className="lg:hidden text-slate-400 hover:text-white p-1 rounded-lg">
@@ -61,18 +63,18 @@ export default function SidebarClient({ role, name, links }: SidebarClientProps)
                         <Link key={link.href} href={link.href} onClick={() => setOpen(false)}
                             className={`flex items-center gap-3 px-3.5 py-3 text-sm font-semibold rounded-xl transition-all duration-200 group relative
                                 ${isActive
-                                    ? "bg-[#14b8a6]/[0.12] text-[#2dd4bf] border border-[#14b8a6]/20"
+                                    ? "bg-[#8B5CF6]/[0.12] text-[#C4B5FD] border border-[#8B5CF6]/20"
                                     : "text-slate-400 hover:bg-white/[0.04] hover:text-slate-200 border border-transparent"
                                 }`}
                         >
                             {isActive && (
-                                <div className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-[3px] bg-[#14b8a6] rounded-r-full" />
+                                <div className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-[3px] bg-[#8B5CF6] rounded-r-full" />
                             )}
-                            <span className={`flex-shrink-0 transition-transform duration-200 ${isActive ? "text-[#14b8a6]" : "group-hover:text-slate-300 group-hover:scale-110"}`}>
+                            <span className={`flex-shrink-0 transition-all duration-200 ${isActive ? "text-[#A78BFA]" : "group-hover:text-slate-300 group-hover:scale-110"}`}>
                                 {Icons[link.icon] || Icons["overview"]}
                             </span>
                             <span>{link.name}</span>
-                            {isActive && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-[#14b8a6]" />}
+                            {isActive && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-[#8B5CF6]" />}
                         </Link>
                     );
                 })}
@@ -81,12 +83,13 @@ export default function SidebarClient({ role, name, links }: SidebarClientProps)
             {/* User Profile */}
             <div className="p-3 border-t border-white/[0.06]">
                 <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.04] border border-white/[0.06] hover:bg-white/[0.07] transition group">
-                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#14b8a6] to-[#0d9488] flex items-center justify-center text-white font-black text-sm shadow-[0_0_12px_rgba(20,184,166,0.3)]">
+                    <div className="w-9 h-9 rounded-full flex items-center justify-center text-white font-black text-sm shadow-[0_0_14px_rgba(139,92,246,0.35)]"
+                        style={{ background: "linear-gradient(135deg, #8B5CF6, #7C3AED)" }}>
                         {name?.charAt(0)?.toUpperCase() || "U"}
                     </div>
                     <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-white truncate">{name}</p>
-                        <Link href="/api/auth/signout" className="text-xs text-slate-500 hover:text-[#2dd4bf] transition-colors font-medium">Sign out</Link>
+                        <Link href="/api/auth/signout" className="text-xs text-slate-500 hover:text-[#A78BFA] transition-colors font-medium">Sign out</Link>
                     </div>
                 </div>
             </div>
@@ -95,7 +98,8 @@ export default function SidebarClient({ role, name, links }: SidebarClientProps)
 
     return (
         <>
-            <button onClick={() => setOpen(true)} className="lg:hidden fixed top-4 left-4 z-40 p-2.5 rounded-xl bg-[#0a1628] text-white shadow-xl border border-white/10 hover:bg-[#0f2040] transition-colors">
+            <button onClick={() => setOpen(true)} className="lg:hidden fixed top-4 left-4 z-40 p-2.5 rounded-xl text-white shadow-xl border border-white/10 hover:bg-[#1A1145] transition-colors"
+                style={{ background: "#0F0B2E" }}>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
             </button>
             {open && <div className="sidebar-overlay lg:hidden" onClick={() => setOpen(false)} />}

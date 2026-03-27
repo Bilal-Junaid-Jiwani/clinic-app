@@ -53,8 +53,8 @@ export default function PatientAppointmentsPage() {
         <div className="space-y-6 animate-fade-in">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">My Appointments</h1>
-                    <p className="text-sm text-gray-500">Track your appointment history and schedule new visits.</p>
+                    <h1 className="text-2xl font-black text-[#1E1B3A] tracking-tight">My Appointments</h1>
+                    <p className="text-sm text-[#8B85A5] font-medium">Track your appointment history and schedule new visits.</p>
                 </div>
                 <button onClick={() => setShowForm(!showForm)} className={showForm ? "btn-secondary w-full sm:w-auto" : "btn-primary w-full sm:w-auto"}>
                     {showForm ? "Cancel" : "+ Book Waitlist"}
@@ -66,16 +66,16 @@ export default function PatientAppointmentsPage() {
                     <h2 className="section-title mb-4">Book New Appointment</h2>
                     <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-2xl">
                         <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Select Doctor</label>
+                            <label className="block text-xs font-bold text-[#6B6585] uppercase tracking-wider mb-1.5">Select Doctor</label>
                             <select className="premium-input" required value={form.doctorId} onChange={(e) => setForm({ ...form, doctorId: e.target.value })}>
                                 <option value="">Select a Doctor</option>
                                 {doctors.map((d: any) => <option key={d._id} value={d._id}>Dr. {d.name}</option>)}
                             </select>
                         </div>
                         <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Preferred Date & Time</label>
+                            <label className="block text-xs font-bold text-[#6B6585] uppercase tracking-wider mb-1.5">Preferred Date & Time</label>
                             <input type="datetime-local" className="premium-input" required value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} />
-                            <p className="text-xs text-gray-400 mt-1">Pending approval from the clinic.</p>
+                            <p className="text-xs text-[#8B85A5] mt-1">Pending approval from the clinic.</p>
                         </div>
                         <div className="md:col-span-2">
                             <button type="submit" disabled={submitting} className="btn-primary w-full sm:w-auto">{submitting ? "Booking..." : "Submit Booking Request"}</button>
@@ -88,14 +88,14 @@ export default function PatientAppointmentsPage() {
                 {loading ? (
                     <div className="p-12 text-center"><div className="skeleton h-4 w-48 mx-auto"></div></div>
                 ) : appointments.length === 0 ? (
-                    <div className="p-12 text-center text-gray-400"><p className="text-4xl mb-2">📅</p><p>No appointments yet.</p></div>
+                    <div className="p-12 text-center text-[#8B85A5]"><p className="text-4xl mb-2">📅</p><p>No appointments yet.</p></div>
                 ) : (
                     <table className="premium-table">
                         <thead><tr><th>Doctor</th><th>Date</th><th>Status</th></tr></thead>
                         <tbody>
                             {appointments.map((a: any) => (
                                 <tr key={a._id}>
-                                    <td className="font-medium text-gray-900">{a.doctorId?.name || "N/A"}</td>
+                                    <td className="font-semibold text-[#1E1B3A]">{a.doctorId?.name || "N/A"}</td>
                                     <td>{new Date(a.date).toLocaleString()}</td>
                                     <td><span className={`badge ${statusColors[a.status] || "badge-gray"}`}>{a.status}</span></td>
                                 </tr>

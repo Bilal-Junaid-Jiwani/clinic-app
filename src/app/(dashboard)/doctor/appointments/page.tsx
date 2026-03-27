@@ -33,11 +33,6 @@ export default function DoctorAppointmentsPage() {
         e.preventDefault();
         setSubmitting(true);
         try {
-            // Need doctorId, but API can derive it or we can get user ID from session.
-            // Wait, our API expects doctorId in body. Let's pass session.user.id if we had it,
-            // or we fetch user session. Instead, easiest is /api/auth/session or 
-            // the API could handle deriving. But we pass doctorId: "auto_from_session_in_api_would_be_better"
-            // Wait, we can get session using getSession() from next-auth/react.
             const sessionRes = await fetch("/api/auth/session");
             const session = await sessionRes.json();
 
@@ -69,8 +64,8 @@ export default function DoctorAppointmentsPage() {
         <div className="space-y-6 animate-fade-in">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">My Appointments</h1>
-                    <p className="text-sm text-gray-500">View and manage your scheduled appointments.</p>
+                    <h1 className="text-2xl font-black text-[#1E1B3A] tracking-tight">My Appointments</h1>
+                    <p className="text-sm text-[#8B85A5] font-medium">View and manage your scheduled appointments.</p>
                 </div>
                 <button onClick={() => setShowForm(!showForm)} className={showForm ? "btn-secondary" : "btn-primary"}>
                     {showForm ? "Cancel" : "+ Book Appointment"}
@@ -82,14 +77,14 @@ export default function DoctorAppointmentsPage() {
                     <h2 className="section-title mb-4">Book Follow-up / New Appointment</h2>
                     <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
                         <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Patient</label>
+                            <label className="block text-xs font-bold text-[#6B6585] uppercase tracking-wider mb-1.5">Patient</label>
                             <select className="premium-input" required value={form.patientId} onChange={(e) => setForm({ ...form, patientId: e.target.value })}>
                                 <option value="">Select Patient</option>
                                 {patients.map((p: any) => <option key={p._id} value={p._id}>{p.name}</option>)}
                             </select>
                         </div>
                         <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Date & Time</label>
+                            <label className="block text-xs font-bold text-[#6B6585] uppercase tracking-wider mb-1.5">Date & Time</label>
                             <input type="datetime-local" className="premium-input" required value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} />
                         </div>
                         <div className="md:col-span-2">
@@ -103,19 +98,19 @@ export default function DoctorAppointmentsPage() {
                 {loading ? (
                     <div className="p-12 text-center"><div className="skeleton h-4 w-48 mx-auto"></div></div>
                 ) : appointments.length === 0 ? (
-                    <div className="p-12 text-center text-gray-400"><p className="text-4xl mb-2">📅</p><p>No appointments found.</p></div>
+                    <div className="p-12 text-center text-[#8B85A5]"><p className="text-4xl mb-2">📅</p><p>No appointments found.</p></div>
                 ) : (
                     <table className="premium-table">
                         <thead><tr><th>Patient</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
                         <tbody>
                             {appointments.map((a: any) => (
                                 <tr key={a._id}>
-                                    <td className="font-medium text-gray-900">{a.patientId?.name || "N/A"}</td>
+                                    <td className="font-semibold text-[#1E1B3A]">{a.patientId?.name || "N/A"}</td>
                                     <td>{new Date(a.date).toLocaleString()}</td>
                                     <td><span className={`badge ${statusColors[a.status] || "badge-gray"}`}>{a.status}</span></td>
                                     <td>
                                         <div className="flex gap-1">
-                                            {a.status === "Confirmed" && <button onClick={() => updateStatus(a._id, "Completed")} className="text-xs bg-green-50 text-green-700 px-2 py-1 rounded-lg font-medium hover:bg-green-100">Complete</button>}
+                                            {a.status === "Confirmed" && <button onClick={() => updateStatus(a._id, "Completed")} className="text-xs bg-emerald-50 text-emerald-700 px-2 py-1 rounded-lg font-medium hover:bg-emerald-100 transition-colors">Complete</button>}
                                         </div>
                                     </td>
                                 </tr>

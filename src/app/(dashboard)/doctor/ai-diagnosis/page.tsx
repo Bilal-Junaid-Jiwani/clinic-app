@@ -10,8 +10,8 @@ export default async function DoctorAIDiagnosisPage() {
     return (
         <div className="space-y-6 animate-fade-in">
             <div>
-                <h1 className="text-2xl font-bold text-gray-900">AI Smart Diagnosis</h1>
-                <p className="text-sm text-gray-500">Enter patient symptoms and get AI-powered diagnostic assistance.</p>
+                <h1 className="text-2xl font-black text-[#1E1B3A] tracking-tight">AI Smart Diagnosis</h1>
+                <p className="text-sm text-[#8B85A5] font-medium">Enter patient symptoms and get AI-powered diagnostic assistance.</p>
             </div>
             <SymptomChecker />
         </div>

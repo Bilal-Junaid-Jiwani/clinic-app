@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export function PrescriptionExplainer() {
     const [prescriptionText, setPrescriptionText] = useState("");
-    const [language, setLanguage] = useState("en"); // 'en' or 'ur'
+    const [language, setLanguage] = useState("en");
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState<string>("");
     const [error, setError] = useState("");
@@ -37,20 +37,22 @@ export function PrescriptionExplainer() {
     };
 
     return (
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mt-6">
-            <h2 className="text-xl font-semibold mb-2 text-gray-800 flex items-center gap-2">
-                <span className="h-6 w-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-sm">✨</span>
+        <div className="glass-card p-6 mt-6 border-t-4 border-t-[#7C3AED]">
+            <h2 className="text-xl font-bold mb-2 text-[#1E1B3A] flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-[#F5F3FF] flex items-center justify-center text-[#7C3AED]">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                </div>
                 AI Prescription Explainer
             </h2>
-            <p className="text-gray-500 text-sm mb-6">
-                Paste your doctor's prescription instructions here to get a simple, easy-to-understand breakdown.
+            <p className="text-[#8B85A5] text-sm mb-6">
+                Paste your doctor&apos;s prescription instructions here to get a simple, easy-to-understand breakdown.
             </p>
 
             <div className="space-y-4">
                 <div>
                     <textarea
                         rows={4}
-                        className="w-full border-gray-300 rounded-md shadow-sm p-3 border focus:ring-blue-500 focus:border-blue-500 text-sm outline-none bg-gray-50"
+                        className="premium-input w-full text-sm"
                         placeholder="e.g. Needs to take Paracetamol 500mg twice a day for 5 days. Avoid cold water."
                         value={prescriptionText}
                         onChange={(e) => setPrescriptionText(e.target.value)}
@@ -59,25 +61,25 @@ export function PrescriptionExplainer() {
 
                 <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mt-4">
                     <div className="flex gap-4 w-full sm:w-auto">
-                        <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+                        <label className="flex items-center gap-2 text-sm text-[#4A4568] cursor-pointer font-medium">
                             <input
                                 type="radio"
                                 name="lang"
                                 value="en"
                                 checked={language === "en"}
                                 onChange={(e) => setLanguage(e.target.value)}
-                                className="text-blue-600 focus:ring-blue-500"
+                                className="accent-[#7C3AED]"
                             />
                             English Explanation
                         </label>
-                        <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+                        <label className="flex items-center gap-2 text-sm text-[#4A4568] cursor-pointer font-medium">
                             <input
                                 type="radio"
                                 name="lang"
                                 value="ur"
                                 checked={language === "ur"}
                                 onChange={(e) => setLanguage(e.target.value)}
-                                className="text-blue-600 focus:ring-blue-500"
+                                className="accent-[#7C3AED]"
                             />
                             Urdu Mode (اردو)
                         </label>
@@ -86,19 +88,19 @@ export function PrescriptionExplainer() {
                     <button
                         onClick={handleExplain}
                         disabled={loading}
-                        className="w-full sm:w-auto px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition font-medium flex gap-2 items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
+                        className="btn-primary w-full sm:w-auto"
                     >
                         {loading ? "Translating..." : "Explain It To Me"}
                     </button>
                 </div>
 
-                {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+                {error && <p className="text-red-500 text-sm mt-2 font-medium">{error}</p>}
             </div>
 
             {result && (
-                <div className="mt-6 p-5 bg-blue-50 rounded-lg border border-blue-100">
-                    <h3 className="font-semibold text-blue-900 text-lg mb-3">AI Explanation:</h3>
-                    <div className="prose prose-sm text-gray-800 max-w-none whitespace-pre-wrap leading-relaxed" dir={language === 'ur' ? 'rtl' : 'ltr'}>
+                <div className="mt-6 p-5 bg-[#F5F3FF] rounded-xl border border-[#E9E5F5]">
+                    <h3 className="font-bold text-[#4C1D95] text-lg mb-3">AI Explanation:</h3>
+                    <div className="prose prose-sm text-[#4A4568] max-w-none whitespace-pre-wrap leading-relaxed" dir={language === 'ur' ? 'rtl' : 'ltr'}>
                         {result}
                     </div>
                 </div>

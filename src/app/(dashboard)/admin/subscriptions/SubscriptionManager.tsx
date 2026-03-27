@@ -54,7 +54,7 @@ export default function SubscriptionManager({ initialStaff }: { initialStaff: St
 
     if (staff.length === 0) {
         return (
-            <div className="p-12 text-center text-gray-500 font-medium">
+            <div className="p-12 text-center text-[#8B85A5] font-medium">
                 No staff members found in the system yet.
             </div>
         );
@@ -77,12 +77,12 @@ export default function SubscriptionManager({ initialStaff }: { initialStaff: St
                         <tr key={user._id} className="group">
                             <td>
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#6366f1] to-[#312e81] flex items-center justify-center text-white font-bold text-sm shadow-sm">
+                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#4C1D95] flex items-center justify-center text-white font-bold text-sm shadow-sm">
                                         {user.name.charAt(0).toUpperCase()}
                                     </div>
                                     <div>
-                                        <p className="font-bold text-gray-900 leading-tight">{user.name}</p>
-                                        <p className="text-[11px] font-medium text-gray-500 mt-0.5">{user.email}</p>
+                                        <p className="font-bold text-[#1E1B3A] leading-tight">{user.name}</p>
+                                        <p className="text-[11px] font-medium text-[#8B85A5] mt-0.5">{user.email}</p>
                                     </div>
                                 </div>
                             </td>
@@ -97,8 +97,8 @@ export default function SubscriptionManager({ initialStaff }: { initialStaff: St
                                 </span>
                             </td>
                             <td>
-                                <span className={`badge ${user.plan === 'Pro' ? 'bg-[#4f46e5]/10 text-[#4f46e5] border border-[#4f46e5]/20' :
-                                        user.plan === 'Standard' ? 'badge-semantic-green' : 'bg-gray-100 text-gray-600'
+                                <span className={`badge ${user.plan === 'Pro' ? 'bg-[#7C3AED]/10 text-[#7C3AED] border border-[#7C3AED]/20' :
+                                        user.plan === 'Standard' ? 'badge-semantic-green' : 'bg-[#F1EFF8] text-[#6B6585]'
                                     }`}>
                                     {user.plan === 'Pro' && <span className="mr-1">✨</span>}
                                     {user.plan}
@@ -118,11 +118,11 @@ export default function SubscriptionManager({ initialStaff }: { initialStaff: St
                             </td>
                             <td>
                                 {loadingId === user._id ? (
-                                    <div className="w-5 h-5 border-2 border-[#4f46e5] border-t-transparent rounded-full animate-spin"></div>
+                                    <div className="w-5 h-5 border-2 border-[#7C3AED] border-t-transparent rounded-full animate-spin"></div>
                                 ) : (
                                     <button
                                         onClick={() => updatePlan(user._id, user.plan === "Pro" ? "Standard" : "Pro")}
-                                        className="text-xs font-bold text-[#4f46e5] hover:text-[#312e81] transition-colors flex items-center gap-1 opacity-0 group-hover:opacity-100"
+                                        className="text-xs font-bold text-[#7C3AED] hover:text-[#4C1D95] transition-colors flex items-center gap-1 opacity-0 group-hover:opacity-100"
                                     >
                                         <SvgIcon path="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                         Toggle Plan

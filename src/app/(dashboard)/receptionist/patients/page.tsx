@@ -51,8 +51,8 @@ export default function ReceptionistPatientsPage() {
         <div className="space-y-6 animate-fade-in">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Patient Management</h1>
-                    <p className="text-sm text-gray-500">Register, search, and manage clinic patients.</p>
+                    <h1 className="text-2xl font-black text-[#1E1B3A] tracking-tight">Patient Management</h1>
+                    <p className="text-sm text-[#8B85A5] font-medium">Register, search, and manage clinic patients.</p>
                 </div>
                 <button onClick={() => setShowForm(!showForm)} className={showForm ? "btn-secondary" : "btn-primary"}>
                     {showForm ? "Cancel" : "+ Register Patient"}
@@ -64,15 +64,15 @@ export default function ReceptionistPatientsPage() {
                     <h2 className="section-title mb-4">Register New Patient</h2>
                     <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
                         <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Full Name</label>
+                            <label className="block text-xs font-bold text-[#6B6585] uppercase tracking-wider mb-1.5">Full Name</label>
                             <input className="premium-input" required placeholder="Patient name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
                         </div>
                         <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Age</label>
+                            <label className="block text-xs font-bold text-[#6B6585] uppercase tracking-wider mb-1.5">Age</label>
                             <input className="premium-input" type="number" required min={0} max={150} placeholder="Age" value={form.age} onChange={(e) => setForm({ ...form, age: e.target.value })} />
                         </div>
                         <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Gender</label>
+                            <label className="block text-xs font-bold text-[#6B6585] uppercase tracking-wider mb-1.5">Gender</label>
                             <select className="premium-input" value={form.gender} onChange={(e) => setForm({ ...form, gender: e.target.value })}>
                                 <option>Male</option>
                                 <option>Female</option>
@@ -80,7 +80,7 @@ export default function ReceptionistPatientsPage() {
                             </select>
                         </div>
                         <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Contact Number</label>
+                            <label className="block text-xs font-bold text-[#6B6585] uppercase tracking-wider mb-1.5">Contact Number</label>
                             <input className="premium-input" required placeholder="03xx-xxxxxxx" value={form.contact} onChange={(e) => setForm({ ...form, contact: e.target.value })} />
                         </div>
                         <div className="md:col-span-2">
@@ -98,7 +98,7 @@ export default function ReceptionistPatientsPage() {
                 {loading ? (
                     <div className="p-12 text-center"><div className="skeleton h-4 w-48 mx-auto mb-3"></div><div className="skeleton h-4 w-32 mx-auto"></div></div>
                 ) : filtered.length === 0 ? (
-                    <div className="p-12 text-center text-gray-400">
+                    <div className="p-12 text-center text-[#8B85A5]">
                         <p className="text-4xl mb-2">👥</p>
                         <p className="font-medium">No patients found.</p>
                     </div>
@@ -108,7 +108,7 @@ export default function ReceptionistPatientsPage() {
                         <tbody>
                             {filtered.map((p: any) => (
                                 <tr key={p._id}>
-                                    <td className="font-medium text-gray-900">{p.name}</td>
+                                    <td className="font-semibold text-[#1E1B3A]">{p.name}</td>
                                     <td>{p.age}</td>
                                     <td><span className={`badge ${p.gender === "Male" ? "badge-blue" : p.gender === "Female" ? "badge-purple" : "badge-gray"}`}>{p.gender}</span></td>
                                     <td>{p.contact}</td>

@@ -61,90 +61,96 @@ export function ManageUsersClient({ roleName, icon }: { roleName: string, icon: 
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 animate-fade-in">
             <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-gray-800">Manage {roleName}s</h1>
+                <div>
+                    <h1 className="text-2xl font-black text-[#1E1B3A] tracking-tight">Manage {roleName}s</h1>
+                    <p className="text-sm font-medium text-[#8B85A5] mt-1">Add, view, and manage {roleName.toLowerCase()} accounts.</p>
+                </div>
                 <button
                     onClick={() => setShowAddForm(!showAddForm)}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                    className={showAddForm ? "btn-secondary" : "btn-primary"}
                 >
                     {showAddForm ? "Cancel" : `+ Add New ${roleName}`}
                 </button>
             </div>
 
             {showAddForm && (
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-6">
-                    <h2 className="text-lg font-semibold mb-4 text-gray-800">Add New {roleName}</h2>
-                    <form onSubmit={handleAddUser} className="space-y-4 max-w-lg">
+                <div className="glass-card p-6 animate-fade-in">
+                    <h2 className="section-title mb-4">Add New {roleName}</h2>
+                    <form onSubmit={handleAddUser} className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <label className="block text-xs font-bold text-[#6B6585] uppercase tracking-wider mb-1.5">Full Name</label>
                             <input
                                 type="text"
                                 required
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                className="w-full border-gray-300 rounded-md shadow-sm p-2 border focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                className="premium-input"
                                 placeholder="E.g. John Doe"
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <label className="block text-xs font-bold text-[#6B6585] uppercase tracking-wider mb-1.5">Email Address</label>
                             <input
                                 type="email"
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full border-gray-300 rounded-md shadow-sm p-2 border focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                className="premium-input"
                                 placeholder={`${roleName.toLowerCase()}@clinic.com`}
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Temporary Password</label>
+                            <label className="block text-xs font-bold text-[#6B6585] uppercase tracking-wider mb-1.5">Temporary Password</label>
                             <input
                                 type="password"
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 minLength={6}
-                                className="w-full border-gray-300 rounded-md shadow-sm p-2 border focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                className="premium-input"
                                 placeholder="••••••••"
                             />
                         </div>
-                        <button
-                            type="submit"
-                            disabled={submitting}
-                            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition font-medium disabled:opacity-70 disabled:cursor-not-allowed"
-                        >
-                            {submitting ? "Creating..." : `Create ${roleName} Account`}
-                        </button>
+                        <div className="flex items-end">
+                            <button
+                                type="submit"
+                                disabled={submitting}
+                                className="btn-primary w-full"
+                            >
+                                {submitting ? "Creating..." : `Create ${roleName} Account`}
+                            </button>
+                        </div>
                     </form>
                 </div>
             )}
 
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="glass-card overflow-hidden">
                 {loading ? (
-                    <div className="p-6 text-center text-gray-500 py-12">Loading {roleName.toLowerCase()}s...</div>
+                    <div className="p-12 text-center"><div className="skeleton h-4 w-48 mx-auto mb-3"></div><div className="skeleton h-4 w-32 mx-auto"></div></div>
                 ) : users.length === 0 ? (
-                    <div className="p-6 text-center text-gray-500 py-12">
-                        <p className="mb-2">{icon} No {roleName.toLowerCase()}s found.</p>
-                        <p className="text-sm">Click "Add New {roleName}" to create the first account.</p>
+                    <div className="p-12 text-center text-[#8B85A5]">
+                        <p className="text-4xl mb-3">{icon}</p>
+                        <p className="font-semibold">No {roleName.toLowerCase()}s found.</p>
+                        <p className="text-sm mt-1">Click &quot;Add New {roleName}&quot; to create the first account.</p>
                     </div>
                 ) : (
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
+                    <table className="premium-table">
+                        <thead>
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
                             </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody>
                             {users.map((user: any) => (
                                 <tr key={user._id}>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{user.name}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                    <td className="font-semibold text-[#1E1B3A]">{user.name}</td>
+                                    <td>{user.email}</td>
+                                    <td>
+                                        <span className="badge badge-brand">
                                             {user.role}
                                         </span>
                                     </td>

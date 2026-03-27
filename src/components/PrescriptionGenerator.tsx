@@ -28,7 +28,6 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
         const element = document.getElementById("prescription-preview");
         if (!element) return;
 
-        // Temporarily show the preview for capture
         element.style.display = "block";
         const canvas = await html2canvas(element, { scale: 2 });
         element.style.display = "none";
@@ -51,7 +50,6 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
             const res = await fetch("/api/prescriptions", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                // Use a dummy patient if none passed for the MVP
                 body: JSON.stringify({ patientId: patientId || "000000000000000000000000", medicines, instructions }),
             });
 
@@ -80,11 +78,10 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
             const res = await fetch("/api/ai/symptom-checker", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ symptoms, includeRx: true }) // Assuming API can handle this or just returns text
+                body: JSON.stringify({ symptoms, includeRx: true })
             });
             const data = await res.json();
             if (res.ok) {
-                // Parse AI response to extract medicines if possible, else just append to instructions
                 setInstructions(`AI Suggestion based on "${symptoms}":\n${data.diagnosis || data.result}\n\n` + instructions);
             } else {
                 throw new Error("AI Failed");
@@ -97,18 +94,18 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
     };
 
     return (
-        <div className="glass-card p-6 mt-6 animate-fade-in border-t-4 border-t-[#4f46e5]">
-            <h2 className="text-xl font-bold mb-2 text-gray-900 flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-[#eef2ff] flex items-center justify-center text-[#4f46e5]">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+        <div className="glass-card p-6 mt-6 animate-fade-in border-t-4 border-t-[#7C3AED]">
+            <h2 className="text-xl font-bold mb-2 text-[#1E1B3A] flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-[#F5F3FF] flex items-center justify-center text-[#7C3AED]">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                 </div>
                 Write Prescription
             </h2>
-            <p className="text-gray-500 text-sm font-medium mb-6">Prescribe medicines and generate a digitally signed PDF for the patient.</p>
+            <p className="text-[#8B85A5] text-sm font-medium mb-6">Prescribe medicines and generate a digitally signed PDF for the patient.</p>
 
             {/* AI Assistant Section */}
-            <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
-                <label className="block text-xs font-bold text-[#4f46e5] mb-2 uppercase tracking-wider flex items-center gap-1">
+            <div className="mb-6 p-4 rounded-xl border border-[#E9E5F5]" style={{ background: "linear-gradient(135deg, #F5F3FF, #EDE9FE)" }}>
+                <label className="block text-xs font-bold text-[#7C3AED] mb-2 uppercase tracking-wider flex items-center gap-1">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                     AI Prescription Assistant
                 </label>
@@ -123,7 +120,8 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
                     <button
                         onClick={handleAIGenerate}
                         disabled={generatingAI}
-                        className="bg-[#4f46e5] text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-[#312e81] shadow-[#4f46e5]/20 hover:shadow-lg transition-all disabled:opacity-50 whitespace-nowrap flex items-center justify-center gap-2"
+                        className="text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:shadow-lg transition-all disabled:opacity-50 whitespace-nowrap flex items-center justify-center gap-2 cursor-pointer"
+                        style={{ background: "linear-gradient(135deg, #7C3AED, #6D28D9)", boxShadow: "0 4px 14px rgba(124,58,237,0.25)" }}
                     >
                         {generatingAI && <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>}
                         {generatingAI ? "Thinking..." : "Get AI Suggestions"}
@@ -133,9 +131,9 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
 
             <div className="space-y-4">
                 {medicines.map((med, index) => (
-                    <div key={index} className="flex flex-col sm:flex-row gap-3 items-end border-b pb-4 sm:border-0 sm:pb-0">
+                    <div key={index} className="flex flex-col sm:flex-row gap-3 items-end border-b border-[#F1EFF8] pb-4 sm:border-0 sm:pb-0">
                         <div className="w-full sm:flex-1">
-                            <label className="block text-xs font-bold text-gray-600 mb-1 uppercase tracking-wider">Medicine Name</label>
+                            <label className="block text-xs font-bold text-[#6B6585] mb-1 uppercase tracking-wider">Medicine Name</label>
                             <input
                                 type="text"
                                 className="premium-input text-sm"
@@ -145,7 +143,7 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
                             />
                         </div>
                         <div className="w-full sm:flex-1">
-                            <label className="block text-xs font-bold text-gray-600 mb-1 uppercase tracking-wider">Dosage</label>
+                            <label className="block text-xs font-bold text-[#6B6585] mb-1 uppercase tracking-wider">Dosage</label>
                             <input
                                 type="text"
                                 className="premium-input text-sm"
@@ -155,7 +153,7 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
                             />
                         </div>
                         <div className="w-full sm:flex-1">
-                            <label className="block text-xs font-bold text-gray-600 mb-1 uppercase tracking-wider">Duration</label>
+                            <label className="block text-xs font-bold text-[#6B6585] mb-1 uppercase tracking-wider">Duration</label>
                             <input
                                 type="text"
                                 className="premium-input text-sm"
@@ -169,14 +167,14 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
 
                 <button
                     onClick={handleAddMedicine}
-                    className="text-sm text-[#4f46e5] font-bold hover:text-[#312e81] transition flex items-center gap-1 mt-2"
+                    className="text-sm text-[#7C3AED] font-bold hover:text-[#6D28D9] transition flex items-center gap-1 mt-2"
                 >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
                     Add another medicine
                 </button>
 
                 <div className="mt-6">
-                    <label className="block text-sm font-bold text-gray-700 mb-2">General Instructions & Advice</label>
+                    <label className="block text-sm font-bold text-[#4A4568] mb-2">General Instructions & Advice</label>
                     <textarea
                         rows={3}
                         className="premium-input w-full text-sm"
@@ -187,7 +185,7 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
                 </div>
 
                 <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <p className="text-sm font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">{success && "✅ Prescription saved successfully!"}</p>
+                    <p className="text-sm font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">{success && "✅ Prescription saved successfully!"}</p>
                     <button
                         onClick={handleSubmit}
                         disabled={loading}
@@ -202,7 +200,7 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
             {/* Hidden PDF Preview Template */}
             <div id="prescription-preview" className="bg-white p-10 text-gray-800" style={{ display: 'none', width: '800px', border: '1px solid #ccc' }}>
                 <div className="text-center mb-10 border-b pb-4">
-                    <h1 className="text-3xl font-bold text-blue-800">Clinic AI</h1>
+                    <h1 className="text-3xl font-bold text-[#7C3AED]">Clinic AI</h1>
                     <p className="text-gray-500">Official Machine-Generated Prescription</p>
                     <p className="text-sm text-gray-400 mt-2">Date: {new Date().toLocaleDateString()}</p>
                 </div>
@@ -237,7 +235,7 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
                 <div className="mt-20 pt-10 border-t flex justify-end">
                     <div className="text-center">
                         <p className="line-through text-transparent">____________________</p>
-                        <p className="font-bold border-t border-gray-400 pt-2 inline-block">Doctor's Signature</p>
+                        <p className="font-bold border-t border-gray-400 pt-2 inline-block">Doctor&apos;s Signature</p>
                     </div>
                 </div>
             </div>
