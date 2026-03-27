@@ -46,7 +46,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Unauthorized. Only Doctors can create prescriptions." }, { status: 401 });
         }
 
-        const { patientId, medicines, instructions } = await req.json();
+        const { patientId, medicines, instructions, diagnosis } = await req.json();
 
         if (!patientId || !medicines || medicines.length === 0) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -59,6 +59,7 @@ export async function POST(req: Request) {
             doctorId: session.user.id,
             medicines,
             instructions,
+            diagnosis: diagnosis || undefined,
         });
 
         return NextResponse.json({ prescription: newPrescription }, { status: 201 });

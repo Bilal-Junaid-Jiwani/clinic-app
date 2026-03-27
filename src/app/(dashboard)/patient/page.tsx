@@ -12,7 +12,7 @@ export default async function PatientDashboard() {
 
     await connectToDatabase();
 
-    const patient = await Patient.findOne({ name: session.user.name || "" }).lean();
+    const patient = await Patient.findOne({ name: session.user.name || "" }).lean() as any;
     const patientId = patient?._id;
 
     let upcomingAppointments = 0;
@@ -30,10 +30,32 @@ export default async function PatientDashboard() {
                     <h1 className="text-3xl font-extrabold text-[#1E1B3A] tracking-tight">Your Health Portal</h1>
                     <p className="text-sm font-medium text-[#8B85A5] mt-1">Welcome back, {session.user.name || "User"}.</p>
                 </div>
-                <div className="flex gap-3">
-                    <a href="/patient/ai-explainer" className="btn-secondary">Ask AI</a>
-                </div>
             </div>
+
+            {/* Patient Profile Card */}
+            {patient && (
+                <div className="glass-card p-6 border-l-4 border-l-[#7C3AED]">
+                    <h2 className="section-title mb-4">My Profile</h2>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div>
+                            <p className="text-xs font-bold text-[#8B85A5] uppercase tracking-widest">Name</p>
+                            <p className="text-sm font-bold text-[#1E1B3A] mt-1">{patient.name}</p>
+                        </div>
+                        <div>
+                            <p className="text-xs font-bold text-[#8B85A5] uppercase tracking-widest">Age</p>
+                            <p className="text-sm font-bold text-[#1E1B3A] mt-1">{patient.age} years</p>
+                        </div>
+                        <div>
+                            <p className="text-xs font-bold text-[#8B85A5] uppercase tracking-widest">Gender</p>
+                            <p className="text-sm font-bold text-[#1E1B3A] mt-1">{patient.gender}</p>
+                        </div>
+                        <div>
+                            <p className="text-xs font-bold text-[#8B85A5] uppercase tracking-widest">Contact</p>
+                            <p className="text-sm font-bold text-[#1E1B3A] mt-1">{patient.contact}</p>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div className="stat-card">
@@ -89,7 +111,7 @@ export default async function PatientDashboard() {
                         </div>
                         <h3 className="font-extrabold text-lg text-[#1E1B3A] group-hover:text-[#7C3AED] transition-colors">My Prescriptions</h3>
                     </div>
-                    <p className="text-sm text-[#8B85A5] font-medium">Access your digital prescriptions and medical instructions anytime.</p>
+                    <p className="text-sm text-[#8B85A5] font-medium">Access your digital prescriptions and download PDFs anytime.</p>
                 </a>
             </div>
 

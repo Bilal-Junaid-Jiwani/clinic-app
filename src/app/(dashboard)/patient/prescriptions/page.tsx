@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import jsPDF from "jspdf";
 
 export default function PatientPrescriptionsPage() {
     const [prescriptions, setPrescriptions] = useState([]);
@@ -12,11 +13,96 @@ export default function PatientPrescriptionsPage() {
             .finally(() => setLoading(false));
     }, []);
 
+    const downloadPDF = (p: any) => {
+        const pdf = new jsPDF("p", "mm", "a4");
+        const pageW = pdf.internal.pageSize.getWidth();
+        let y = 25;
+
+        // Header
+        pdf.setFontSize(24);
+        pdf.setTextColor(124, 58, 237);
+        pdf.text("Clinic AI", pageW / 2, y, { align: "center" });
+        y += 8;
+        pdf.setFontSize(10);
+        pdf.setTextColor(120, 120, 120);
+        pdf.text("Official Digital Prescription", pageW / 2, y, { align: "center" });
+        y += 6;
+        pdf.text(`Date: ${new Date(p.createdAt).toLocaleDateString()}`, pageW / 2, y, { align: "center" });
+        y += 4;
+        pdf.setDrawColor(200, 200, 200);
+        pdf.line(20, y, pageW - 20, y);
+        y += 10;
+
+        // Doctor
+        pdf.setFontSize(11);
+        pdf.setTextColor(30, 30, 30);
+        pdf.text(`Prescribed by: Dr. ${p.doctorId?.name || "N/A"}`, 20, y);
+        y += 10;
+
+        // Diagnosis
+        if (p.diagnosis) {
+            pdf.setFontSize(13);
+            pdf.setTextColor(30, 30, 30);
+            pdf.text("Diagnosis", 20, y);
+            y += 7;
+            pdf.setFontSize(11);
+            pdf.text(p.diagnosis, 20, y);
+            y += 10;
+        }
+
+        // Medicines Table
+        pdf.setFontSize(13);
+        pdf.text("Rx - Medicines", 20, y);
+        y += 8;
+
+        // Table header
+        pdf.setFillColor(245, 243, 255);
+        pdf.rect(20, y - 1, pageW - 40, 8, "F");
+        pdf.setFontSize(9);
+        pdf.setTextColor(100, 100, 100);
+        pdf.text("Medicine", 25, y + 5);
+        pdf.text("Dosage", 80, y + 5);
+        pdf.text("Duration", 135, y + 5);
+        y += 12;
+
+        // Table rows
+        pdf.setTextColor(30, 30, 30);
+        (p.medicines || []).forEach((m: any) => {
+            pdf.text(m.name || "", 25, y);
+            pdf.text(m.dosage || "", 80, y);
+            pdf.text(m.duration || "", 135, y);
+            y += 8;
+        });
+
+        y += 5;
+
+        // Instructions
+        if (p.instructions) {
+            pdf.setFontSize(13);
+            pdf.text("Instructions", 20, y);
+            y += 7;
+            pdf.setFontSize(10);
+            const lines = pdf.splitTextToSize(p.instructions, pageW - 40);
+            pdf.text(lines, 20, y);
+            y += lines.length * 5 + 5;
+        }
+
+        // Signature
+        y = Math.max(y + 20, 240);
+        pdf.setDrawColor(180, 180, 180);
+        pdf.line(pageW - 70, y, pageW - 20, y);
+        pdf.setFontSize(9);
+        pdf.setTextColor(100, 100, 100);
+        pdf.text("Doctor's Signature", pageW - 45, y + 6, { align: "center" });
+
+        pdf.save(`prescription-${p._id}.pdf`);
+    };
+
     return (
         <div className="space-y-6 animate-fade-in">
             <div>
                 <h1 className="text-2xl font-black text-[#1E1B3A] tracking-tight">My Prescriptions</h1>
-                <p className="text-sm text-[#8B85A5] font-medium">View your prescription history and details.</p>
+                <p className="text-sm text-[#8B85A5] font-medium">View your prescription history and download PDFs.</p>
             </div>
             <div className="space-y-4">
                 {loading ? (
@@ -31,8 +117,25 @@ export default function PatientPrescriptionsPage() {
                                     <h3 className="font-bold text-[#1E1B3A]">Prescription</h3>
                                     <p className="text-xs text-[#8B85A5]">By Dr. {p.doctorId?.name || "N/A"} • {new Date(p.createdAt).toLocaleDateString()}</p>
                                 </div>
-                                <span className="badge badge-green">Active</span>
+                                <div className="flex items-center gap-2">
+                                    <span className="badge badge-green">Active</span>
+                                    <button
+                                        onClick={() => downloadPDF(p)}
+                                        className="flex items-center gap-1.5 text-xs font-bold text-white px-3 py-1.5 rounded-lg transition-all hover:shadow-lg"
+                                        style={{ background: "linear-gradient(135deg, #7C3AED, #6D28D9)" }}
+                                    >
+                                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                                        PDF
+                                    </button>
+                                </div>
                             </div>
+
+                            {p.diagnosis && (
+                                <div className="mb-3 p-3 bg-[#F5F3FF] rounded-xl border border-[#E9E5F5]">
+                                    <p className="text-xs font-bold text-[#7C3AED] mb-0.5">Diagnosis</p>
+                                    <p className="text-sm text-[#1E1B3A] font-medium">{p.diagnosis}</p>
+                                </div>
+                            )}
 
                             {p.medicines?.length > 0 && (
                                 <div className="mb-3">

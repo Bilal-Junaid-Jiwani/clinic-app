@@ -5,6 +5,7 @@ import { useState } from "react";
 export function SymptomChecker() {
     const [symptoms, setSymptoms] = useState("");
     const [age, setAge] = useState("");
+    const [gender, setGender] = useState("");
     const [history, setHistory] = useState("");
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState<any>(null);
@@ -23,7 +24,7 @@ export function SymptomChecker() {
             const res = await fetch("/api/ai/symptom-checker", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ symptoms, age, history }),
+                body: JSON.stringify({ symptoms, age, gender, history }),
             });
 
             const data = await res.json();
@@ -48,7 +49,7 @@ export function SymptomChecker() {
             <p className="text-[#8B85A5] text-sm mb-6">Enter patient symptoms to get AI-powered condition probabilities, risk levels, and recommended tests.</p>
 
             <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <label className="block text-xs font-bold text-[#6B6585] uppercase tracking-wider mb-1.5">Patient Age</label>
                         <input
@@ -58,6 +59,19 @@ export function SymptomChecker() {
                             value={age}
                             onChange={(e) => setAge(e.target.value)}
                         />
+                    </div>
+                    <div>
+                        <label className="block text-xs font-bold text-[#6B6585] uppercase tracking-wider mb-1.5">Gender</label>
+                        <select
+                            className="premium-input text-sm"
+                            value={gender}
+                            onChange={(e) => setGender(e.target.value)}
+                        >
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
                     <div>
                         <label className="block text-xs font-bold text-[#6B6585] uppercase tracking-wider mb-1.5">Relevant Medical History</label>

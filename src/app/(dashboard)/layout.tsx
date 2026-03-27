@@ -41,29 +41,26 @@ export default async function DashboardLayout({ children }: { children: React.Re
     };
 
     return (
-        <div className="flex h-screen font-sans selection:bg-[#8B5CF6] selection:text-white" style={{ background: "#F8F7FC" }}>
+        <div style={{ display: "flex", height: "100vh", fontFamily: "'Inter', system-ui, sans-serif", background: "#F8F7FC" }}>
             <SidebarClient role={role} name={name || "User"} links={getLinks()} />
 
-            <div className="flex-1 flex flex-col overflow-hidden min-w-0 relative">
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#8B5CF6]/[0.02] rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#A78BFA]/[0.015] rounded-full blur-3xl pointer-events-none" />
-
-                <header className="bg-white/80 backdrop-blur-xl px-6 lg:px-10 py-4 flex items-center justify-between border-b border-[#E9E5F5]/60 z-10 sticky top-0">
-                    <div className="pl-12 lg:pl-0">
-                        <h2 className="text-xl font-black text-[#1E1B3A] tracking-tight">Workspace</h2>
-                        <p className="text-[11px] text-[#8B85A5] font-bold uppercase tracking-widest mt-0.5">
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", minWidth: 0, position: "relative" }}>
+                {/* Header */}
+                <header style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(12px)", padding: "16px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid rgba(233,229,245,0.6)", position: "sticky", top: 0, zIndex: 10 }}>
+                    <div style={{ paddingLeft: 0 }} className="pl-12 lg:pl-0">
+                        <h2 style={{ fontSize: 20, fontWeight: 900, color: "#1E1B3A", letterSpacing: "-0.02em" }}>Workspace</h2>
+                        <p style={{ fontSize: 11, color: "#8B85A5", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginTop: 2 }}>
                             {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
                         </p>
                     </div>
-                    <div className="flex items-center gap-3 bg-white border border-[#E9E5F5] px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-shadow">
-                        <div className="relative flex h-2.5 w-2.5">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#8B5CF6] opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#7C3AED]"></span>
-                        </div>
-                        <span className="text-[11px] text-[#6B6585] font-extrabold tracking-wider uppercase">Online</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, background: "#fff", border: "1px solid #E9E5F5", padding: "8px 16px", borderRadius: 999, boxShadow: "0 1px 4px rgba(0,0,0,0.04)" }}>
+                        <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#7C3AED", display: "inline-block", boxShadow: "0 0 8px rgba(124,58,237,0.5)" }} />
+                        <span style={{ fontSize: 11, color: "#6B6585", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.06em" }}>Online</span>
                     </div>
                 </header>
-                <main className="flex-1 overflow-y-auto p-6 lg:p-10 z-0">
+
+                {/* Content */}
+                <main style={{ flex: 1, overflowY: "auto", padding: "32px 40px" }}>
                     <Toaster position="top-right" />
                     {children}
                 </main>

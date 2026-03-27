@@ -9,8 +9,18 @@ const DiagnosisLogSchema = new Schema(
             enum: ["Low", "Medium", "High", "Critical"],
             required: true,
         },
+        doctorId: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+        },
+        patientId: {
+            type: Schema.Types.ObjectId,
+            ref: "Patient",
+        },
+        age: { type: Number },
+        gender: { type: String, enum: ["Male", "Female", "Other"] },
     },
-    { timestamps: true } // adds createdAt automatically
+    { timestamps: true }
 );
 
 const DiagnosisLog = models.DiagnosisLog || model("DiagnosisLog", DiagnosisLogSchema);

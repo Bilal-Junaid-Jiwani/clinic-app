@@ -33,84 +33,90 @@ export default function LoginPage() {
         { role: "Patient", email: "patient@test.com", pw: "patient123", color: "from-[#F59E0B] to-[#D97706]" },
     ];
 
-    return (
-        <div className="min-h-screen flex" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
-            {/* ─── LEFT: Branding Panel ─── */}
-            <div className="hidden lg:flex lg:w-[52%] flex-col justify-between p-12 xl:p-16 relative overflow-hidden"
-                style={{ background: "linear-gradient(135deg, #0F0B2E 0%, #1A1145 40%, #1E0F4A 100%)" }}>
+    const inputClasses = "w-full px-4 py-3 rounded-xl text-sm font-medium outline-none transition-all duration-200 text-white placeholder-slate-500";
 
+    return (
+        <div className="min-h-screen flex flex-col lg:flex-row" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+            {/* ─────────────── LEFT BRANDING PANEL ─────────────── */}
+            <div
+                className="hidden lg:flex lg:w-[50%] relative overflow-hidden"
+                style={{ background: "linear-gradient(135deg, #0F0B2E 0%, #1A1145 40%, #1E0F4A 100%)" }}
+            >
                 {/* Decorative orbs */}
                 <div className="absolute -top-20 -left-20 w-96 h-96 rounded-full opacity-[0.12]"
                     style={{ background: "radial-gradient(circle, #8B5CF6, transparent 70%)" }} />
                 <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full opacity-[0.06]"
                     style={{ background: "radial-gradient(circle, #A78BFA, transparent 70%)" }} />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-[0.04]"
-                    style={{ background: "radial-gradient(circle, #C4B5FD, transparent 70%)" }} />
 
-                {/* Top Logo */}
-                <div className="relative z-10 flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl flex items-center justify-center shadow-[0_0_24px_rgba(139,92,246,0.5)]"
-                        style={{ background: "linear-gradient(135deg, #8B5CF6, #7C3AED)" }}>
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
+                {/* Content wrapper - centered both horizontally and vertically */}
+                <div className="relative z-10 flex flex-col justify-between w-full h-full px-14 xl:px-20 py-10">
+                    {/* Top Logo */}
+                    <div className="flex items-center gap-3">
+                        <div className="w-11 h-11 rounded-xl flex items-center justify-center shadow-[0_0_24px_rgba(139,92,246,0.5)]"
+                            style={{ background: "linear-gradient(135deg, #8B5CF6, #7C3AED)" }}>
+                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 className="text-xl font-black text-white tracking-tight">Clinic<span className="text-[#A78BFA]">AI</span></h1>
+                            <p className="text-[11px] font-bold text-[#A78BFA]/60 uppercase tracking-widest">Smart Medical Platform</p>
+                        </div>
                     </div>
-                    <div>
-                        <h1 className="text-xl font-black text-white tracking-tight">Clinic<span className="text-[#A78BFA]">AI</span></h1>
-                        <p className="text-[11px] font-bold text-[#A78BFA]/60 uppercase tracking-widest">Smart Medical Platform</p>
-                    </div>
-                </div>
 
-                {/* Center Hero */}
-                <div className="relative z-10 max-w-md mx-auto">
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 mb-8">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] animate-pulse" />
-                        <span className="text-xs font-bold text-[#C4B5FD] tracking-wider">AI-POWERED CLINIC SUITE</span>
-                    </div>
-                    <h2 className="text-4xl xl:text-5xl font-black text-white leading-[1.15] tracking-tight mb-5">
-                        The Future of<br />
-                        <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(90deg,#A78BFA,#C4B5FD,#DDD6FE)" }}>
-                            Healthcare
-                        </span><br />
-                        Management
-                    </h2>
-                    <p className="text-slate-400 text-base font-medium leading-relaxed mb-10">
-                        Streamline clinic operations, reduce paperwork, and enhance patient care with our AI-driven platform.
-                    </p>
+                    {/* Center Hero */}
+                    <div className="flex-1 flex flex-col justify-center py-8">
+                        <div className="max-w-lg">
+                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 mb-6">
+                                <div className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] animate-pulse" />
+                                <span className="text-xs font-bold text-[#C4B5FD] tracking-wider">AI-POWERED CLINIC SUITE</span>
+                            </div>
+                            <h2 className="text-4xl xl:text-5xl font-black text-white leading-[1.1] tracking-tight mb-5">
+                                The Future of<br />
+                                <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(90deg,#A78BFA,#C4B5FD,#DDD6FE)" }}>
+                                    Healthcare
+                                </span><br />
+                                Management
+                            </h2>
+                            <p className="text-slate-400 text-base font-medium leading-relaxed mb-8 max-w-md">
+                                Streamline clinic operations, reduce paperwork, and enhance patient care with our AI-driven platform.
+                            </p>
 
-                    <div className="grid grid-cols-1 gap-3">
-                        {features.map((f, i) => (
-                            <div key={i} className="flex items-center gap-3 p-3.5 rounded-xl bg-white/[0.04] border border-white/[0.07] hover:bg-white/[0.07] transition-colors">
-                                <div className="w-8 h-8 rounded-lg bg-[#8B5CF6]/15 flex items-center justify-center flex-shrink-0">
-                                    <svg className="w-4 h-4 text-[#C4B5FD]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={f.icon} />
-                                    </svg>
-                                </div>
-                                <span className="text-sm font-semibold text-slate-300">{f.text}</span>
+                            <div className="grid grid-cols-1 gap-2.5">
+                                {features.map((f, i) => (
+                                    <div key={i} className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] transition-colors">
+                                        <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: "rgba(139, 92, 246, 0.15)" }}>
+                                            <svg className="w-4.5 h-4.5 text-[#C4B5FD]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={f.icon} />
+                                            </svg>
+                                        </div>
+                                        <span className="text-sm font-semibold text-slate-300">{f.text}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Bottom stats */}
+                    <div className="flex items-center gap-8">
+                        {[["4", "User Roles"], ["AI", "Diagnosis Engine"], ["Live", "on Vercel"]].map(([v, l]) => (
+                            <div key={l}>
+                                <p className="text-2xl font-black text-white">{v}</p>
+                                <p className="text-xs text-slate-500 font-semibold">{l}</p>
                             </div>
                         ))}
                     </div>
                 </div>
-
-                {/* Bottom stats */}
-                <div className="relative z-10 flex items-center gap-6">
-                    {[["4", "User Roles"], ["AI", "Diagnosis Engine"], ["Live", "on Vercel"]].map(([v, l]) => (
-                        <div key={l}>
-                            <p className="text-xl font-black text-white">{v}</p>
-                            <p className="text-xs text-slate-500 font-semibold">{l}</p>
-                        </div>
-                    ))}
-                </div>
             </div>
 
-            {/* ─── RIGHT: Login Form ─── */}
-            <div className="flex-1 flex items-center justify-center p-6 lg:p-12 relative"
+            {/* ─────────────── RIGHT LOGIN FORM ─────────────── */}
+            <div className="flex-1 flex items-center justify-center px-6 py-10 lg:px-16 relative"
                 style={{ background: "linear-gradient(180deg, #130E30 0%, #0F0B2E 100%)" }}>
 
                 <div className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-[0.06]"
                     style={{ background: "radial-gradient(circle, #8B5CF6, transparent)" }} />
 
-                <div className="w-full max-w-md relative z-10">
+                <div className="w-full max-w-sm relative z-10">
                     {/* Mobile logo */}
                     <div className="lg:hidden flex items-center gap-3 mb-8">
                         <div className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -127,30 +133,36 @@ export default function LoginPage() {
 
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div>
-                            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Email Address</label>
+                            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Email Address</label>
                             <input
                                 type="email"
                                 required
                                 placeholder="doctor@clinic.com"
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
-                                className="w-full bg-white/[0.06] border border-white/[0.12] text-white placeholder-slate-500 px-4 py-3 rounded-xl text-sm font-medium outline-none focus:border-[#8B5CF6] focus:bg-white/[0.09] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-all"
+                                className={inputClasses}
+                                style={{ background: "rgba(255,255,255,0.08)", border: "2px solid rgba(255,255,255,0.15)" }}
+                                onFocus={e => { e.target.style.borderColor = "#8B5CF6"; e.target.style.background = "rgba(255,255,255,0.12)"; }}
+                                onBlur={e => { e.target.style.borderColor = "rgba(255,255,255,0.15)"; e.target.style.background = "rgba(255,255,255,0.08)"; }}
                             />
                         </div>
                         <div>
-                            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Password</label>
+                            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Password</label>
                             <input
                                 type="password"
                                 required
                                 placeholder="••••••••"
                                 value={password}
                                 onChange={e => setPassword(e.target.value)}
-                                className="w-full bg-white/[0.06] border border-white/[0.12] text-white placeholder-slate-500 px-4 py-3 rounded-xl text-sm font-medium outline-none focus:border-[#8B5CF6] focus:bg-white/[0.09] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-all"
+                                className={inputClasses}
+                                style={{ background: "rgba(255,255,255,0.08)", border: "2px solid rgba(255,255,255,0.15)" }}
+                                onFocus={e => { e.target.style.borderColor = "#8B5CF6"; e.target.style.background = "rgba(255,255,255,0.12)"; }}
+                                onBlur={e => { e.target.style.borderColor = "rgba(255,255,255,0.15)"; e.target.style.background = "rgba(255,255,255,0.08)"; }}
                             />
                         </div>
 
                         {error && (
-                            <div className="flex items-center gap-2 px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-xl">
+                            <div className="flex items-center gap-2 px-4 py-3 rounded-xl" style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)" }}>
                                 <svg className="w-4 h-4 text-red-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                                 <p className="text-red-400 text-sm font-semibold">{error}</p>
                             </div>
@@ -170,17 +182,20 @@ export default function LoginPage() {
                     {/* Demo Accounts */}
                     <div className="mt-8">
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="flex-1 h-px bg-white/[0.07]" />
+                            <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.08)" }} />
                             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Demo Access</span>
-                            <div className="flex-1 h-px bg-white/[0.07]" />
+                            <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.08)" }} />
                         </div>
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="grid grid-cols-2 gap-2.5">
                             {demoAccounts.map((acc) => (
                                 <button
                                     key={acc.role}
                                     type="button"
                                     onClick={() => { setEmail(acc.email); setPassword(acc.pw); }}
-                                    className="group p-3 rounded-xl border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.07] hover:border-white/[0.15] transition-all text-left cursor-pointer"
+                                    className="group text-left cursor-pointer p-3.5 rounded-xl transition-all duration-200"
+                                    style={{ background: "rgba(255,255,255,0.03)", border: "1.5px solid rgba(255,255,255,0.08)" }}
+                                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.07)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.16)"; }}
+                                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.03)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)"; }}
                                 >
                                     <span className={`inline-block text-[10px] font-black px-2 py-0.5 rounded-md text-white mb-1.5 bg-gradient-to-r ${acc.color}`}>{acc.role}</span>
                                     <p className="text-xs text-slate-400 font-medium truncate">{acc.email}</p>

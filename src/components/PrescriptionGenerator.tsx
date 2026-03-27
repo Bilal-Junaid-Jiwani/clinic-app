@@ -7,6 +7,7 @@ import html2canvas from "html2canvas";
 export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: string, onSuccess?: () => void }) {
     const [medicines, setMedicines] = useState([{ name: "", dosage: "", duration: "" }]);
     const [instructions, setInstructions] = useState("");
+    const [diagnosis, setDiagnosis] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
@@ -16,6 +17,11 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
 
     const handleAddMedicine = () => {
         setMedicines([...medicines, { name: "", dosage: "", duration: "" }]);
+    };
+
+    const handleRemoveMedicine = (index: number) => {
+        if (medicines.length === 1) return;
+        setMedicines(medicines.filter((_, i) => i !== index));
     };
 
     const handleMedicineChange = (index: number, field: string, value: string) => {
@@ -50,7 +56,12 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
             const res = await fetch("/api/prescriptions", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ patientId: patientId || "000000000000000000000000", medicines, instructions }),
+                body: JSON.stringify({
+                    patientId: patientId || "000000000000000000000000",
+                    medicines,
+                    instructions,
+                    diagnosis: diagnosis || undefined,
+                }),
             });
 
             if (!res.ok) throw new Error("Failed to save prescription to DB");
@@ -59,6 +70,7 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
             setSuccess(true);
             setMedicines([{ name: "", dosage: "", duration: "" }]);
             setInstructions("");
+            setDiagnosis("");
             if (onSuccess) onSuccess();
         } catch (err: any) {
             console.error(err);
@@ -82,7 +94,7 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
             });
             const data = await res.json();
             if (res.ok) {
-                setInstructions(`AI Suggestion based on "${symptoms}":\n${data.diagnosis || data.result}\n\n` + instructions);
+                setInstructions(`AI Suggestion based on "${symptoms}":\n${data.diagnosis?.aiResponse || data.result}\n\n` + instructions);
             } else {
                 throw new Error("AI Failed");
             }
@@ -129,6 +141,18 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
                 </div>
             </div>
 
+            {/* Diagnosis Field */}
+            <div className="mb-6">
+                <label className="block text-sm font-bold text-[#4A4568] mb-2">Diagnosis</label>
+                <input
+                    type="text"
+                    className="premium-input text-sm"
+                    placeholder="e.g. Acute viral pharyngitis"
+                    value={diagnosis}
+                    onChange={(e) => setDiagnosis(e.target.value)}
+                />
+            </div>
+
             <div className="space-y-4">
                 {medicines.map((med, index) => (
                     <div key={index} className="flex flex-col sm:flex-row gap-3 items-end border-b border-[#F1EFF8] pb-4 sm:border-0 sm:pb-0">
@@ -162,6 +186,11 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
                                 onChange={(e) => handleMedicineChange(index, "duration", e.target.value)}
                             />
                         </div>
+                        {medicines.length > 1 && (
+                            <button onClick={() => handleRemoveMedicine(index)} className="text-red-400 hover:text-red-600 transition-colors p-2 mb-0.5" title="Remove">
+                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                            </button>
+                        )}
                     </div>
                 ))}
 
@@ -204,6 +233,13 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
                     <p className="text-gray-500">Official Machine-Generated Prescription</p>
                     <p className="text-sm text-gray-400 mt-2">Date: {new Date().toLocaleDateString()}</p>
                 </div>
+
+                {diagnosis && (
+                    <div className="mb-6">
+                        <h2 className="text-xl font-bold border-b pb-2 mb-2">Diagnosis</h2>
+                        <p className="text-lg">{diagnosis}</p>
+                    </div>
+                )}
 
                 <div className="mb-8">
                     <h2 className="text-xl font-bold border-b pb-2 mb-4">Rx - Medicines</h2>

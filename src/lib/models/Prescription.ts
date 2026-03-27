@@ -20,6 +20,7 @@ const PrescriptionSchema = new Schema(
             },
         ],
         instructions: { type: String },
+        diagnosis: { type: String },
     },
     { timestamps: true } // adds createdAt automatically
 );
