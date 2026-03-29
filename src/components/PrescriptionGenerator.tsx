@@ -229,7 +229,7 @@ export function PrescriptionGenerator({ patientId, onSuccess }: { patientId?: st
             {/* Hidden PDF Preview Template */}
             <div id="prescription-preview" className="bg-white p-10 text-gray-800" style={{ display: 'none', width: '800px', border: '1px solid #ccc' }}>
                 <div className="text-center mb-10 border-b pb-4">
-                    <h1 className="text-3xl font-bold text-[#7C3AED]">Nexis</h1>
+                    <h1 className="text-3xl font-bold text-[#7C3AED]">Aether</h1>
                     <p className="text-gray-500">Official Machine-Generated Prescription</p>
                     <p className="text-sm text-gray-400 mt-2">Date: {new Date().toLocaleDateString()}</p>
                 </div>

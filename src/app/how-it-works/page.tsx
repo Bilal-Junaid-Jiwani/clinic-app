@@ -19,7 +19,7 @@ export default function HowItWorksPage() {
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFBD2E] to-[#F59E0B]">AI orchestration.</span>
                 </h1>
                 <p className="text-xl text-[#A9A3C2] font-medium max-w-2xl mx-auto leading-relaxed">
-                    We designed Nexis to be deployed in minutes, not months. Here is how you transition your entire medical pipeline to the future.
+                    We designed Aether to be deployed in minutes, not months. Here is how you transition your entire medical pipeline to the future.
                 </p>
             </header>
 

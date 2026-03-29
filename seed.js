@@ -1,6 +1,6 @@
 import connectToDatabase from "./lib/mongodb.js";
 import User from "./lib/models/User.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 
 dotenv.config();

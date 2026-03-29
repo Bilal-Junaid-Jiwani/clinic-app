@@ -3,8 +3,8 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
-  title: "Nexis – Smart Medical Management",
-  description: "AI-powered clinic management SaaS for modern healthcare",
+  title: "Aether – Neural Healthcare Architecture",
+  description: "Advanced multi-tenant SaaS for modern medical institutions.",
 };
 
 export default function RootLayout({

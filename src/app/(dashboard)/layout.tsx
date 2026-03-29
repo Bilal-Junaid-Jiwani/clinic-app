@@ -58,7 +58,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
                             </span>
-                            <span>CRITICAL SYSTEM ALERT: Your Nexis subscription expires {daysLeft > 0 ? `in ${daysLeft} days` : 'today'}. Please rapidly contact system architects or risk node suspension.</span>
+                            <span>CRITICAL SYSTEM ALERT: Your Aether subscription expires {daysLeft > 0 ? `in ${daysLeft} days` : 'today'}. Please rapidly contact system architects or risk node suspension.</span>
                         </div>
                     </div>
                 )}

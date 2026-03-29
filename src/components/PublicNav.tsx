@@ -5,11 +5,11 @@ export default function PublicNav() {
         <nav className="fixed w-full z-50 transition-all duration-300 backdrop-blur-md bg-white/70 border-b border-[#E9E5F5]">
             <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] flex items-center justify-center text-white font-black text-xl shadow-lg">
-                        C
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7C3AED] to-[#4F46E5] flex items-center justify-center text-white font-black text-xl shadow-lg">
+                        A
                     </div>
                     <span className="text-xl font-black tracking-tight text-[#1A1A1A]">
-                        Clinic<span className="text-[#3A3A3A]">AI</span>
+                        Aether<span className="text-[#7C3AED]">OS</span>
                     </span>
                 </Link>
                 

@@ -141,7 +141,7 @@ export default function AdminAnalyticsClient() {
                         {[
                             { href: "/admin/doctors", title: "Medical Staff", desc: "Manage doctor profiles", icon: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" },
                             { href: "/admin/receptionists", title: "Front Desk", desc: "Manage receptionists", icon: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
-                            { href: "/admin/subscriptions", title: "Plans & Billing", desc: "Manage subscriptions", icon: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" },
+
                         ].map((link, i) => (
                             <a key={i} href={link.href} className="group flex items-center justify-between p-5 rounded-xl border border-[#E9E5F5] bg-white hover:border-[#8B5CF6] transition-all shadow-sm hover:shadow-md">
                                 <div className="flex items-center gap-4">
@@ -169,9 +169,9 @@ export default function AdminAnalyticsClient() {
                         <h2 className="text-4xl font-black">PRO ✨</h2>
                         <p className="text-sm text-[#C4B5FD] mt-1 font-medium">Unlimited Access • AI Enabled • Advanced Analytics</p>
                     </div>
-                    <a href="/admin/subscriptions" className="px-8 py-3 bg-white text-[#7C3AED] font-extrabold rounded-xl hover:bg-gray-50 transition-colors shadow-lg text-sm">
-                        Manage Plans
-                    </a>
+                    <div className="px-8 py-3 bg-white/10 text-white border border-white/20 font-extrabold rounded-xl transition-colors shadow-lg text-sm italic">
+                        Node Active
+                    </div>
                 </div>
             </div>
         </div>

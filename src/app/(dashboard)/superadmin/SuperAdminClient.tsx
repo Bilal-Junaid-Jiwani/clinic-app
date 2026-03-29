@@ -10,11 +10,29 @@ interface AdminUser {
     createdAt: string;
     status: string;
     subscriptionExpiry?: string;
+    subscriptionPlan?: string;
 }
 
-export default function SuperAdminClient({ initialPending, initialActive }: { initialPending: AdminUser[], initialActive: AdminUser[] }) {
+interface Stats {
+    totalActive: number;
+    pending: number;
+    mrr: number;
+    distribution: {
+        starter: number;
+        pro: number;
+        enterprise: number;
+    };
+    ecosystem: {
+        patients: number;
+        appointments: number;
+        prescriptions: number;
+    };
+}
+
+export default function SuperAdminClient({ initialPending, initialActive, stats: initialStats }: { initialPending: AdminUser[], initialActive: AdminUser[], stats: Stats }) {
     const [pending, setPending] = useState<AdminUser[]>(initialPending);
     const [active, setActive] = useState<AdminUser[]>(initialActive);
+    const [stats, setStats] = useState<Stats>(initialStats);
     const [loadingId, setLoadingId] = useState<string | null>(null);
 
     const approveNode = async (id: string, email: string) => {
@@ -73,8 +91,84 @@ export default function SuperAdminClient({ initialPending, initialActive }: { in
         } catch { alert("Error suspending."); } finally { setLoadingId(null); }
     };
 
+    const updatePlan = async (id: string, newPlan: string) => {
+        setLoadingId(id + '-plan');
+        try {
+            const res = await fetch("/api/superadmin/update-plan", {
+                method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, plan: newPlan })
+            });
+            if (res.ok) {
+                setActive(prev => prev.map(u => u._id === id ? { ...u, plan: newPlan } : u));
+                alert(`Architecture upgraded to ${newPlan}`);
+            } else alert("Protocol failure updating plan.");
+        } catch { alert("Error updating architecture tier."); } finally { setLoadingId(null); }
+    };
+
     return (
         <div className="space-y-12">
+            {/* Analytics Deck */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div className="bg-white border border-[#E9E5F5] rounded-3xl p-6 shadow-sm">
+                    <p className="text-xs font-black text-[#8B85A5] uppercase tracking-widest mb-2 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#7C3AED]"></span> Total Projected MRR
+                    </p>
+                    <h3 className="text-3xl font-black text-[#1E1B3A]">${stats.mrr.toLocaleString()}</h3>
+                </div>
+                <div className="bg-white border border-[#E9E5F5] rounded-3xl p-6 shadow-sm">
+                    <p className="text-xs font-black text-[#8B85A5] uppercase tracking-widest mb-2 flex items-center gap-2">
+                         <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span> Active Nodes
+                    </p>
+                    <h3 className="text-3xl font-black text-[#1E1B3A]">{stats.totalActive}</h3>
+                </div>
+                <div className="bg-white border border-[#E9E5F5] rounded-3xl p-6 shadow-sm">
+                    <p className="text-xs font-black text-[#8B85A5] uppercase tracking-widest mb-2 flex items-center gap-2">
+                         <span className="w-1.5 h-1.5 rounded-full bg-[#FFBD2E]"></span> Pending Deploy
+                    </p>
+                    <h3 className="text-3xl font-black text-[#1E1B3A]">{stats.pending}</h3>
+                </div>
+                <div className="bg-white border border-[#E9E5F5] rounded-3xl p-6 shadow-sm">
+                    <p className="text-xs font-black text-[#8B85A5] uppercase tracking-widest mb-2 flex items-center gap-2">
+                         <span className="w-1.5 h-1.5 rounded-full bg-[#1E1B3A]"></span> Tier Heatmap
+                    </p>
+                    <div className="flex items-center gap-2 mt-2">
+                        <div className="h-2 bg-[#7C3AED]/20 hover:bg-[#7C3AED] transition-colors flex-1 rounded-full relative group">
+                            <span className="absolute -top-6 left-1/2 -translate-x-1/2 bg-black text-white px-2 py-0.5 rounded text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">Starter: {stats.distribution.starter}</span>
+                        </div>
+                        <div className="h-2 bg-[#7C3AED]/50 hover:bg-[#7C3AED] transition-colors flex-1 rounded-full relative group">
+                            <span className="absolute -top-6 left-1/2 -translate-x-1/2 bg-black text-white px-2 py-0.5 rounded text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">Pro: {stats.distribution.pro}</span>
+                        </div>
+                        <div className="h-2 bg-[#7C3AED] hover:bg-[#4C1D95] transition-colors flex-1 rounded-full relative group">
+                            <span className="absolute -top-6 left-1/2 -translate-x-1/2 bg-black text-white px-2 py-0.5 rounded text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">Ent: {stats.distribution.enterprise}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Ecosystem Health Deck */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="bg-[#1E1B3A] text-white rounded-3xl p-6 shadow-xl relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 blur-3xl rounded-full"></div>
+                    <p className="text-[10px] font-black opacity-40 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span> Total Patients Synchronized
+                    </p>
+                    <h3 className="text-3xl font-black">{stats.ecosystem.patients}</h3>
+                </div>
+                <div className="bg-[#1E1B3A] text-white rounded-3xl p-6 shadow-xl relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 blur-3xl rounded-full"></div>
+                    <p className="text-[10px] font-black opacity-40 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                         <span className="w-1.5 h-1.5 rounded-full bg-[#7C3AED]"></span> Global Appointments
+                    </p>
+                    <h3 className="text-3xl font-black">{stats.ecosystem.appointments}</h3>
+                </div>
+                <div className="bg-[#1E1B3A] text-white rounded-3xl p-6 shadow-xl relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 blur-3xl rounded-full"></div>
+                    <p className="text-[10px] font-black opacity-40 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                         <span className="w-1.5 h-1.5 rounded-full bg-[#FFBD2E]"></span> Prescription Transmissions
+                    </p>
+                    <h3 className="text-3xl font-black">{stats.ecosystem.prescriptions}</h3>
+                </div>
+            </div>
+
             {/* Pending Approvals */}
             <section>
                 <h2 className="text-xl font-bold flex items-center gap-2 mb-6 text-[#1E1B3A]">
@@ -151,9 +245,16 @@ export default function SuperAdminClient({ initialPending, initialActive }: { in
                                             <p className="text-xs text-[#8B85A5]">{admin.email}</p>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className="inline-flex bg-[#7C3AED]/10 text-[#7C3AED] px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider">
-                                                {admin.plan}
-                                            </span>
+                                            <select 
+                                                value={admin.plan}
+                                                onChange={(e) => updatePlan(admin._id, e.target.value)}
+                                                disabled={loadingId === admin._id + '-plan'}
+                                                className="bg-transparent text-[#7C3AED] font-bold text-xs uppercase tracking-wider focus:outline-none cursor-pointer hover:underline disabled:opacity-50"
+                                            >
+                                                <option value="Starter">Starter</option>
+                                                <option value="Pro">Professional</option>
+                                                <option value="Enterprise">Enterprise</option>
+                                            </select>
                                         </td>
                                         <td className="px-6 py-4">
                                             {admin.subscriptionExpiry ? (

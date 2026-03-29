@@ -100,7 +100,7 @@ function RegisterForm() {
                         {step === 1 ? "Initialize Node" : "Secure Checkout"}
                     </h1>
                     <p className="text-[#8B85A5] text-sm">
-                        {step === 1 ? "Provision your Nexis workspace." : "Finalize payment protocol for deployment."}
+                        {step === 1 ? "Provision your Aether workspace." : "Finalize payment protocol for deployment."}
                     </p>
                 </div>
 
@@ -119,7 +119,7 @@ function RegisterForm() {
                 {step === 1 ? (
                     <form onSubmit={handleNextStep} className="space-y-5 animate-fade-in">
                         <div>
-                            <label className="block text-xs font-bold text-[#A9A3C2] uppercase tracking-wider mb-2">Clinic / Admin Name</label>
+                            <label className="block text-xs font-bold text-[#A9A3C2] uppercase tracking-wider mb-2">Architecture / Organization Name</label>
                             <input
                                 type="text"
                                 value={name}

@@ -52,15 +52,13 @@ export default function LoginPage() {
                 <div className="relative z-10 flex flex-col justify-between w-full h-full px-14 xl:px-20 py-10">
                     {/* Top Logo */}
                     <div className="flex items-center gap-3">
-                        <div className="w-11 h-11 rounded-xl flex items-center justify-center shadow-[0_0_24px_rgba(139,92,246,0.5)]"
+                        <div className="w-11 h-11 rounded-xl flex items-center justify-center shadow-[0_0_24px_rgba(139,92,246,0.5)] font-black text-white text-xl"
                             style={{ background: "linear-gradient(135deg, #8B5CF6, #7C3AED)" }}>
-                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                            </svg>
+                            A
                         </div>
                         <div>
-                            <h1 className="text-xl font-black text-white tracking-tight">Clinic<span className="text-[#A78BFA]">AI</span></h1>
-                            <p className="text-[11px] font-bold text-[#A78BFA]/60 uppercase tracking-widest">Smart Medical Platform</p>
+                            <h1 className="text-xl font-black text-white tracking-tight">Aether</h1>
+                            <p className="text-[11px] font-bold text-[#A78BFA]/60 uppercase tracking-widest">Enterprise Architecture</p>
                         </div>
                     </div>
 
@@ -69,7 +67,7 @@ export default function LoginPage() {
                         <div className="max-w-lg">
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 mb-6">
                                 <div className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] animate-pulse" />
-                                <span className="text-xs font-bold text-[#C4B5FD] tracking-wider">AI-POWERED CLINIC SUITE</span>
+                                <span className="text-xs font-bold text-[#C4B5FD] tracking-wider">AETHER OS INFRASTRUCTURE</span>
                             </div>
                             <h2 className="text-4xl xl:text-5xl font-black text-white leading-[1.1] tracking-tight mb-5">
                                 The Future of<br />
@@ -119,13 +117,11 @@ export default function LoginPage() {
                 <div className="w-full max-w-sm relative z-10">
                     {/* Mobile logo */}
                     <div className="lg:hidden flex items-center gap-3 mb-8">
-                        <div className="w-10 h-10 rounded-xl flex items-center justify-center"
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center font-black text-white"
                             style={{ background: "linear-gradient(135deg, #8B5CF6, #7C3AED)" }}>
-                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                            </svg>
+                            A
                         </div>
-                        <span className="text-lg font-black text-white">Clinic<span className="text-[#A78BFA]">AI</span></span>
+                        <span className="text-lg font-black text-white">Aether</span>
                     </div>
 
                     <h2 className="text-3xl font-black text-white mb-1 tracking-tight">Welcome back</h2>

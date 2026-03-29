@@ -1,6 +1,6 @@
 import connectToDatabase from "./src/lib/mongodb";
 import User from "./src/lib/models/User";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import * as dotenv from "dotenv";
 
 process.env.MONGODB_URI = "mongodb+srv://bilaljunaid:Junaid4kzb@cluster0.kgp9ebj.mongodb.net/?appName=Cluster0";

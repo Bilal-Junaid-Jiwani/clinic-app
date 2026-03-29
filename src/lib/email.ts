@@ -17,7 +17,7 @@ export async function sendEmail({ to, subject, html }: SendEmailOptions) {
     });
 
     const mailOptions = {
-      from: `"Nexis Architect" <${process.env.EMAIL_USER}>`,
+      from: `"Aether Architect" <${process.env.EMAIL_USER}>`,
       to,
       subject,
       html,

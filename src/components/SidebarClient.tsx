@@ -50,16 +50,14 @@ export default function SidebarClient({ role, name, links }: SidebarClientProps)
                 <div style={{ padding: "20px 24px", borderBottom: "1px solid rgba(255,255,255,0.06)" }} className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div
-                            className="flex items-center justify-center"
+                            className="flex items-center justify-center font-black text-white"
                             style={{ width: 40, height: 40, borderRadius: 12, background: "linear-gradient(135deg, #8B5CF6, #7C3AED)", boxShadow: "0 0 20px rgba(139,92,246,0.4)" }}
                         >
-                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                            </svg>
+                            A
                         </div>
                         <div>
                             <h1 style={{ fontSize: 18, fontWeight: 900, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1 }}>
-                                Clinic<span style={{ color: "#A78BFA" }}>AI</span>
+                                Aether
                             </h1>
                             <span style={{ fontSize: 10, fontWeight: 700, color: "rgba(167,139,250,0.6)", textTransform: "uppercase", letterSpacing: "0.1em" }}>{role}</span>
                         </div>

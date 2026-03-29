@@ -67,6 +67,7 @@ export async function POST(req: Request) {
             patientId: patientId || undefined,
             age: age ? Number(age) : undefined,
             gender: gender || undefined,
+            clinicId: (session.user as any).clinicId,
         });
 
         return NextResponse.json({
