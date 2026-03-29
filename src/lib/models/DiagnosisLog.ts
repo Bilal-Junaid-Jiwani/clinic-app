@@ -22,7 +22,7 @@ const DiagnosisLogSchema = new Schema(
         clinicId: {
             type: Schema.Types.ObjectId,
             ref: "User",
-            required: true,
+            required: false,
         },
     },
     { timestamps: true }

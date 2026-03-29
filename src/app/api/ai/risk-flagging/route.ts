@@ -6,15 +6,13 @@ import Appointment from "@/lib/models/Appointment";
 import Prescription from "@/lib/models/Prescription";
 import DiagnosisLog from "@/lib/models/DiagnosisLog";
 import Patient from "@/lib/models/Patient";
-import { GoogleGenAI } from "@google/genai";
+import { askAI } from "@/lib/ai";
 import { checkPlanAccess } from "@/lib/planGate";
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 export async function POST(req: Request) {
     try {
         const session = await getServerSession(authOptions);
-        if (!session || session.user.role !== "Doctor") {
+        if (!session || (session.user as any).role !== "Doctor") {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
@@ -78,18 +76,14 @@ Start with "Overall Risk: [Level]" on the first line.
         let overallRisk = "Low";
 
         try {
-            const response = await ai.models.generateContent({
-                model: "gemini-2.5-flash",
-                contents: prompt,
-            });
-            aiResponse = response.text || "No response generated.";
+            aiResponse = await askAI(prompt);
 
             const riskMatch = aiResponse.match(/Overall Risk:\s*(Low|Medium|High|Critical)/i);
             if (riskMatch?.[1]) {
                 overallRisk = riskMatch[1].charAt(0).toUpperCase() + riskMatch[1].slice(1).toLowerCase();
             }
-        } catch (aiError) {
-            console.error("AI Risk Flagging Error:", aiError);
+        } catch (aiError: any) {
+            console.error("AI Risk Flagging Error:", aiError?.message || aiError);
             aiResponse = "AI Service temporarily unavailable. Manual review recommended.";
         }
 
@@ -108,4 +102,3 @@ Start with "Overall Risk: [Level]" on the first line.
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
-

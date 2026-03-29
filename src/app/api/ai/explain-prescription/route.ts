@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { GoogleGenAI } from "@google/genai";
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+import { askAI } from "@/lib/ai";
 
 export async function POST(req: Request) {
     try {
@@ -37,14 +35,9 @@ export async function POST(req: Request) {
         let explanation = "";
 
         try {
-            const response = await ai.models.generateContent({
-                model: "gemini-2.5-flash",
-                contents: prompt,
-            });
-
-            explanation = response.text || "No explanation generated.";
-        } catch (aiError) {
-            console.error("Gemini API Error:", aiError);
+            explanation = await askAI(prompt);
+        } catch (aiError: any) {
+            console.error("Claude API Error:", aiError?.message || aiError);
             explanation = language === "ur"
                 ? "AI سروس فی الحال دستیاب نہیں ہے۔ براہ کرم اپنے ڈاکٹر سے رجوع کریں۔"
                 : "AI Service temporarily unavailable. Please consult your doctor for clarification.";
@@ -56,4 +49,3 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
-
